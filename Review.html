@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Galaxy Store - Reviews</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:Poppins,sans-serif;background:#faf8ff;color:#171724}a{text-decoration:none;color:inherit}button,input,select,textarea{font:inherit}
+.top{height:60px;background:#10101d;color:#fff;position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:center}.topin{width:1100px;max-width:calc(100% - 30px);display:flex;justify-content:space-between;align-items:center}.topin>div{display:flex;align-items:center;height:60px}.topitem{padding:0 15px;font-size:12px;display:flex;gap:8px;align-items:center}.divider{width:1px;height:50%;background:#ffffff22}.social{display:flex;gap:17px;padding:0 15px}.social a:hover{color:#ff5d64}.cart,.search{height:60px;width:55px;display:flex;align-items:center;justify-content:center}.cart{position:relative}.search{border:0;background:#343342;color:#fff}.count{position:absolute;top:7px;right:4px;background:#ff4f6d;border-radius:50%;min-width:18px;height:18px;font-size:9px;display:grid;place-items:center}
+.nav{height:123px;position:fixed;top:60px;left:0;right:0;z-index:19;background:#fff;border-bottom:1px solid #eee;display:flex;align-items:center;justify-content:center}.navin{width:1100px;max-width:calc(100% - 30px);height:100%;display:flex;align-items:center;justify-content:space-between}.logo img{width:220px;max-height:105px;object-fit:contain}.menu{height:100%;display:flex;align-items:center;gap:24px}.menu>a,.dropbtn{font-size:13px;font-weight:700;height:100%;display:flex;align-items:center;white-space:nowrap}.menu>a:hover,.menu>a.active,.drop.open .dropbtn{color:#ff4f6d}.drop{height:100%;position:relative}.dropbtn{border:0;background:transparent;gap:7px}.dropbtn i{font-size:9px}.dropmenu{position:absolute;top:100%;right:0;width:190px;background:white;border:1px solid #eee;box-shadow:0 12px 30px #0002;opacity:0;visibility:hidden;transform:translateY(8px);transition:.2s}.drop.open .dropmenu{opacity:1;visibility:visible;transform:none}.dropmenu a{display:block;padding:12px 16px;font-size:12px}.dropmenu a:hover{background:#fff4f7;color:#ff4f6d}
+.searchpanel{position:fixed;top:60px;right:max(0px,calc((100vw - 1100px)/2));z-index:30;width:700px;height:65px;background:#fff;display:flex;box-shadow:0 10px 30px #0002;opacity:0;visibility:hidden;transform:translateY(-8px);transition:.2s}.searchpanel.show{opacity:1;visibility:visible;transform:none}.searchpanel input{flex:1;border:0;background:#f5f5f5;padding:0 18px;outline:0}.searchpanel select{width:180px;border:0;border-left:1px solid #ddd;background:#f5f5f5;padding:0 10px}.searchpanel button{width:60px;border:0;background:#ff4f6d;color:white}
+main{padding-top:183px}.hero{text-align:center;padding:75px 20px;background:radial-gradient(circle at 20% 20%,#ff4f6d33,transparent 28%),radial-gradient(circle at 80% 30%,#7b4dff33,transparent 30%),linear-gradient(135deg,#fff5f8,#f7f1ff,#effcff);position:relative;overflow:hidden}.hero:before,.hero:after{content:'';position:absolute;border-radius:50%;filter:blur(2px);animation:float 5s infinite}.hero:before{width:120px;height:120px;background:#ff4f6d22;left:8%;top:25px}.hero:after{width:160px;height:160px;background:#684cff22;right:7%;bottom:0}@keyframes float{50%{transform:translateY(-16px) scale(1.08)}}.mini{font-size:11px;letter-spacing:4px;color:#ff4f6d;font-weight:600}.hero h1{font-size:46px;font-weight:500;margin:10px 0}.hero p{font-size:13px;color:#777}
+.wrap{width:92%;max-width:1150px;margin:50px auto 80px;display:grid;grid-template-columns:1.15fr .85fr;gap:28px}.card{background:#fff;border:1px solid #eee;border-radius:20px;padding:30px;box-shadow:0 12px 35px #4d236b0d}.card h2{font-size:22px}.sub{font-size:12px;color:#888;margin:6px 0 23px}.stars{display:flex;gap:6px;margin-bottom:5px}.stars button{border:0;background:none;color:#d7d7df;font-size:31px;transition:.2s}.stars button:hover,.stars button.active{color:#ffb000;transform:scale(1.13)}.ratingtext{font-size:11px;color:#999;margin-bottom:20px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}.field{margin-bottom:15px}.field.full{grid-column:1/-1}.field label{font-size:11px;font-weight:600;display:block;margin-bottom:7px}.field input,.field select,.field textarea{width:100%;border:1px solid #e3e0e8;background:#fbfaff;border-radius:10px;padding:12px;outline:0;font-size:12px}.field textarea{min-height:125px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:#ff5d7a;box-shadow:0 0 0 4px #ff5d7a12}.checks{display:flex;gap:18px;flex-wrap:wrap;font-size:10px;color:#777;margin:2px 0 20px}.checks label{display:flex;gap:6px;align-items:center}.checks input{accent-color:#ff4f6d}.submit{width:100%;border:0;border-radius:11px;padding:15px;color:white;font-size:12px;font-weight:600;background:linear-gradient(90deg,#ff4f6d,#a855f7,#5f75ff);box-shadow:0 10px 25px #8c4fd52b;transition:.25s}.submit:hover{transform:translateY(-2px);box-shadow:0 14px 30px #8c4fd544}
+.info{padding:19px;border-radius:15px;background:linear-gradient(135deg,#fff4f7,#f7f0ff);border:1px solid #f0e4ef;margin-bottom:15px}.info i{width:40px;height:40px;background:white;border-radius:12px;display:grid;place-items:center;color:#ff4f6d;margin-bottom:10px}.info h3{font-size:14px;margin-bottom:5px}.info p{font-size:10px;color:#777;line-height:1.8}.emailbox{background:#11111c;color:white;border-radius:15px;padding:20px;margin-top:18px}.emailbox h3{font-size:14px;margin-bottom:7px}.emailbox p{font-size:10px;color:#aaa;line-height:1.7}.emailbox code{display:block;color:#ff91a5;font-size:9px;margin-top:9px;word-break:break-all}
+.reviews{width:92%;max-width:1150px;margin:0 auto 90px}.heading{text-align:center;margin-bottom:28px}.heading h2{font-size:30px;margin:7px 0}.heading p{font-size:11px;color:#888}.reviewgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.review{background:#fff;border:1px solid #eee;border-radius:17px;padding:22px;transition:.25s}.review:hover{transform:translateY(-5px);box-shadow:0 15px 35px #4d236b12}.person{display:flex;gap:11px;align-items:center;margin-bottom:13px}.avatar{width:43px;height:43px;border-radius:50%;display:grid;place-items:center;color:white;font-weight:700;background:linear-gradient(135deg,#ff4f6d,#9c55f7)}.person h4{font-size:12px}.person small{font-size:9px;color:#aaa}.review .rstars{color:#ffb000;font-size:12px;margin-bottom:8px}.review p{font-size:10px;color:#777;line-height:1.8}.verified{font-size:9px;color:#29a56b;margin-top:12px;display:block}
+.messenger{position:fixed;right:24px;bottom:24px;width:58px;height:58px;border-radius:50%;background:#ed1971;color:white;display:grid;place-items:center;font-size:30px;z-index:50;box-shadow:0 8px 22px #ed197155;transition:.25s}.messenger:hover{transform:scale(1.1)}.toast{position:fixed;right:25px;bottom:95px;background:#171724;color:white;padding:13px 18px;border-radius:8px;font-size:11px;opacity:0;transform:translateY(20px);transition:.25s;z-index:60}.toast.show{opacity:1;transform:none}
+footer{background:#11111c;color:white;padding:50px 7% 23px}.foot{max-width:1150px;margin:auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:35px}.foot h3{font-size:16px;margin-bottom:14px}.foot p,.foot a{font-size:10px;color:#aaa;line-height:2}.foot a:hover{color:#ff617a}.copy{max-width:1150px;margin:30px auto 0;border-top:1px solid #292938;padding-top:18px;text-align:center;color:#777;font-size:9px}
+@media(max-width:1000px){.menu{gap:12px}.menu>a,.dropbtn{font-size:10px}.wrap{grid-template-columns:1fr}.reviewgrid{grid-template-columns:1fr 1fr}.topin .topitem{font-size:10px}.logo img{width:170px}.logo{width:180px}}
+@media(max-width:750px){.top{height:52px}.topin{justify-content:flex-end}.topin .topin-left{display:none}.nav{top:52px;height:auto;padding:12px 0}.navin{flex-direction:column;gap:10px}.logo{width:auto}.logo img{width:150px}.menu{height:auto;flex-wrap:wrap;justify-content:center}.menu>a,.drop,.dropbtn{height:28px}.searchpanel{top:52px;left:10px;right:10px;width:auto}.page,main{padding-top:175px}.grid{grid-template-columns:1fr}.field.full{grid-column:auto}.reviewgrid{grid-template-columns:1fr}.foot{grid-template-columns:1fr 1fr}.hero h1{font-size:35px}}
+
+/* =====================================================
+   EMAIL OWNER SECTION
+===================================================== */
+
+.owner-email-section{
+    width:90%;
+    max-width:1100px;
+    margin:20px auto 80px;
+    position:relative;
+}
+
+.email-card{
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    gap:35px;
+    padding:42px;
+    border-radius:24px;
+    background:
+        radial-gradient(circle at 10% 10%, rgba(255,93,100,.16), transparent 30%),
+        radial-gradient(circle at 90% 90%, rgba(111,76,255,.14), transparent 30%),
+        #fff;
+    border:1px solid #eee;
+    box-shadow:0 18px 50px rgba(20,20,40,.09);
+    animation:emailFloat 4s ease-in-out infinite;
+}
+
+.email-card::before{
+    content:"";
+    position:absolute;
+    width:220px;
+    height:220px;
+    right:-90px;
+    top:-100px;
+    border-radius:50%;
+    background:linear-gradient(135deg,#ff5d64,#8c5cff);
+    opacity:.10;
+}
+
+.email-icon{
+    flex:0 0 72px;
+    width:72px;
+    height:72px;
+    border-radius:20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#ff5d64,#8c5cff);
+    color:#fff;
+    font-size:30px;
+    box-shadow:0 12px 25px rgba(255,93,100,.25);
+}
+
+.email-content{
+    flex:1;
+    position:relative;
+    z-index:1;
+}
+
+.email-label{
+    color:#ff5d64;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:2.5px;
+}
+
+.email-content h2{
+    margin:8px 0 8px;
+    font-size:32px;
+    font-weight:600;
+}
+
+.email-content > p{
+    color:#777;
+    font-size:13px;
+    line-height:1.8;
+    max-width:700px;
+    margin-bottom:25px;
+}
+
+.owner-email-form{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+.email-form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+}
+
+.email-field{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.email-field label{
+    font-size:12px;
+    font-weight:600;
+    color:#222;
+}
+
+.email-field input,
+.email-field textarea{
+    width:100%;
+    border:1px solid #ddd;
+    outline:none;
+    background:#fafafa;
+    border-radius:10px;
+    padding:13px 15px;
+    font-family:inherit;
+    font-size:13px;
+    color:#222;
+    transition:.25s;
+}
+
+.email-field input{
+    height:48px;
+}
+
+.email-field textarea{
+    resize:vertical;
+    min-height:135px;
+}
+
+.email-field input:focus,
+.email-field textarea:focus{
+    background:#fff;
+    border-color:#ff5d64;
+    box-shadow:0 0 0 4px rgba(255,93,100,.08);
+    transform:translateY(-1px);
+}
+
+.send-owner-email{
+    width:max-content;
+    min-width:190px;
+    height:50px;
+    border:0;
+    border-radius:10px;
+    padding:0 24px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    background:linear-gradient(135deg,#ff5d64,#8c5cff);
+    color:#fff;
+    font-family:inherit;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.4px;
+    box-shadow:0 10px 22px rgba(255,93,100,.22);
+    transition:.3s;
+}
+
+.send-owner-email:hover{
+    transform:translateY(-3px);
+    box-shadow:0 15px 30px rgba(255,93,100,.30);
+}
+
+.send-owner-email:active{
+    transform:scale(.97);
+}
+
+.email-note{
+    margin:0 !important;
+    color:#999 !important;
+    font-size:10px !important;
+}
+
+.email-note i{
+    margin-right:5px;
+    color:#ff5d64;
+}
+
+@keyframes emailFloat{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-3px);}
+}
+
+@media(max-width:700px){
+    .email-card{
+        flex-direction:column;
+        padding:28px 22px;
+        gap:22px;
+    }
+
+    .email-form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .email-content h2{
+        font-size:26px;
+    }
+
+    .send-owner-email{
+        width:100%;
+    }
+}
+
+
+.email-owner-shortcut{
+    position:fixed;
+    left:25px;
+    bottom:25px;
+    width:54px;
+    height:54px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#fff;
+    color:#ff5d64;
+    border:2px solid #ff5d64;
+    box-shadow:0 8px 22px rgba(0,0,0,.14);
+    z-index:9998;
+    transition:.3s;
+}
+.email-owner-shortcut:hover{
+    color:#fff;
+    background:#ff5d64;
+    transform:translateY(-4px) scale(1.06);
+}
+@media(max-width:480px){
+    .email-owner-shortcut{
+        left:18px;
+        bottom:18px;
+        width:48px;
+        height:48px;
+    }
+}
+
+</style>
+</head>
+<body>
+<a href="#email-owner" class="email-owner-shortcut" aria-label="Email owner">
+  <i class="fa-regular fa-envelope"></i>
+</a>
+
+<div class="top"><div class="topin"><div class="topin-left"><div class="topitem">📍 Kathmandu, Nepal</div><div class="divider"></div><div class="topitem">☎ +977-9851185313</div><div class="divider"></div><div class="topitem">✉ sales@clothesnepal.com</div></div><div><div class="social"><a href="#"><i class="fa-brands fa-facebook-f"></i></a><a href="#"><i class="fa-brands fa-instagram"></i></a></div><div class="divider"></div><a class="topitem" href="Registor.html"><i class="fa-regular fa-user"></i> Login / Register</a><div class="divider"></div><a class="cart" href="Cart.html"><i class="fa-solid fa-cart-shopping"></i><span class="count" id="cartCount">0</span></a><button class="search" id="searchToggle"><i class="fa-solid fa-magnifying-glass"></i></button></div></div></div>
+<div class="searchpanel" id="searchPanel"><input id="searchInput" placeholder="Search Products..."><select><option>Select Category</option><option>Dress</option><option>Bags</option><option>Jackets</option><option>Pants</option><option>Shoes</option></select><button id="searchSubmit"><i class="fa-solid fa-magnifying-glass"></i></button></div>
+<nav class="nav"><div class="navin"><div class="logo"><a href="Home.html"><img src="Galaxy Store.png" alt="Galaxy Store"></a></div><div class="menu"><a href="dress.html">DRESS</a><a href="bags.html">BAGS</a><a href="jackets.html">JACKETS</a><a href="pants.html">PANTS</a><a href="Spin.html">Discount Spin</a><a href="Review.html">REVIEWS</a><div class="drop"><button class="dropbtn">BABY CITY <i class="fa-solid fa-chevron-down"></i></button><div class="dropmenu"><a href="baby-dresses.html">Baby Dresses</a><a href="baby-shoes.html">Baby Shoes</a><a href="baby-accessories.html">Baby Accessories</a></div></div><div class="drop"><button class="dropbtn">UNDERTHINGS <i class="fa-solid fa-chevron-down"></i></button><div class="dropmenu"><a href="bras.html">Bras</a><a href="panties.html">Panties</a><a href="innerwear.html">Innerwear</a></div></div><div class="drop"><button class="dropbtn">SHOP <i class="fa-solid fa-chevron-down"></i></button><div class="dropmenu"><a href="new-arrivals.html">New Arrivals</a><a href="best-sellers.html">Best Sellers</a><a href="sale.html">Sale</a><a href="all-products.html">All Products</a></div></div></div></div></nav>
+<main>
+<section class="hero"><div class="mini">GALAXY STORE</div><h1>Share Your Experience</h1><p>Your honest review helps other shoppers and helps Galaxy Store improve.</p></section>
+<section class="wrap"><div class="card"><h2>Write a Review</h2><p class="sub">Everything starts empty — the customer chooses the rating and writes the real review.</p><form id="reviewForm" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST"><div class="field"><label>Your Rating *</label><div class="stars" id="stars"><button type="button" data-r="1">★</button><button type="button" data-r="2">★</button><button type="button" data-r="3">★</button><button type="button" data-r="4">★</button><button type="button" data-r="5">★</button></div><div class="ratingtext" id="ratingText">No rating selected</div><input type="hidden" name="rating" id="rating"></div><div class="grid"><div class="field"><label>Name *</label><input name="name" required placeholder="Your name"></div><div class="field"><label>Email *</label><input name="email" type="email" required placeholder="your@email.com"></div><div class="field"><label>Product *</label><select name="product" required><option value="">Choose product</option><option>Classic White Fashion Dress</option><option>Elegant Floral Summer Dress</option><option>Black Elegant Party Dress</option><option>Pink Casual Summer Dress</option><option>Red Party Dress</option><option>Other Product</option></select></div><div class="field"><label>Order Number</label><input name="order_number" placeholder="Optional"></div><div class="field full"><label>Your Review *</label><textarea name="review" required placeholder="Tell us about quality, fit, colour, delivery and your experience..."></textarea></div></div><div class="checks"><label><input type="checkbox" name="recommend" value="Yes"> I recommend this product</label><label><input type="checkbox" name="verified" value="Yes"> I purchased this product</label></div><input type="hidden" name="_subject" value="New Galaxy Store Customer Review"><button class="submit" type="submit"><i class="fa-regular fa-paper-plane"></i> SUBMIT REVIEW</button></form></div>
+<aside class="card"><h2>Real Customer Feedback</h2><p class="sub">Keep this section genuine — show reviews that your customers actually send.</p><div class="info"><i class="fa-solid fa-heart"></i><h3>Help other shoppers</h3><p>Customers can share what they liked about the product before another shopper buys it.</p></div><div class="info"><i class="fa-solid fa-shirt"></i><h3>Review the product</h3><p>Customers can talk about quality, fit, colour, packaging and delivery.</p></div><div class="info"><i class="fa-solid fa-lightbulb"></i><h3>Improve Galaxy Store</h3><p>Honest feedback helps you discover what customers want more of.</p></div><div class="emailbox"><h3><i class="fa-regular fa-envelope"></i> Email the owner</h3><p>Connect the form to Formspree so submitted reviews can arrive at the owner's email.</p><code>https://formspree.io/f/YOUR_FORMSPREE_ID</code></div></aside></section>
+<section class="reviews"><div class="heading"><div class="mini">CUSTOMER VOICES</div><h2>Customer Reviews</h2><p>Only add genuine customer reviews here — no fake ratings.</p></div><div class="reviewgrid"><article class="review"><div class="person"><div class="avatar">?</div><div><h4>Waiting for your first review</h4><small>Real customer feedback</small></div></div><div class="rstars">☆ ☆ ☆ ☆ ☆</div><p>Your first customer's real review can appear here.</p></article><article class="review"><div class="person"><div class="avatar">?</div><div><h4>Customer review</h4><small>Waiting for feedback</small></div></div><div class="rstars">☆ ☆ ☆ ☆ ☆</div><p>Do not pre-fill this with made-up ratings. Replace it with genuine feedback.</p></article><article class="review"><div class="person"><div class="avatar">?</div><div><h4>Share your experience</h4><small>Galaxy Store customer</small></div></div><div class="rstars">☆ ☆ ☆ ☆ ☆</div><p>Customers can submit their own rating and review using the form above.</p></article></div></section>
+</main>
+<a class="messenger" href="https://www.messenger.com/login"><i class="fa-brands fa-facebook-messenger"></i></a><div class="toast" id="toast"></div>
+
+<section class="owner-email-section" id="email-owner">
+  <div class="email-card">
+    <div class="email-icon">
+      <i class="fa-regular fa-envelope"></i>
+    </div>
+
+    <div class="email-content">
+      <span class="email-label">GALAXY STORE CUSTOMER SUPPORT</span>
+      <h2>Email the Owner</h2>
+      <p>
+        Have a question about your order, product, delivery, return, or anything
+        else? Send a message directly to the Galaxy Store owner.
+      </p>
+
+      <form
+        action="https://formspree.io/f/xkjwkjob"
+        method="POST"
+        class="owner-email-form"
+      >
+        <div class="email-form-grid">
+          <div class="email-field">
+            <label for="customerName">Your Name</label>
+            <input
+              type="text"
+              id="customerName"
+              name="customer_name"
+              placeholder="Enter your name"
+              required
+            >
+          </div>
+
+          <div class="email-field">
+            <label for="customerEmail">Your Email</label>
+            <input
+              type="email"
+              id="customerEmail"
+              name="email"
+              placeholder="you@example.com"
+              required
+            >
+          </div>
+        </div>
+
+        <div class="email-field">
+          <label for="emailSubject">Subject</label>
+          <input
+            type="text"
+            id="emailSubject"
+            name="subject"
+            placeholder="What would you like to ask?"
+            required
+          >
+        </div>
+
+        <div class="email-field">
+          <label for="emailMessage">Your Message</label>
+          <textarea
+            id="emailMessage"
+            name="message"
+            rows="6"
+            placeholder="Write your message here..."
+            required
+          ></textarea>
+        </div>
+
+        <input type="hidden" name="_subject" value="New Customer Message - Galaxy Store">
+
+        <button type="submit" class="send-owner-email">
+          <i class="fa-regular fa-paper-plane"></i>
+          Send Email to Owner
+        </button>
+
+        <p class="email-note">
+          <i class="fa-solid fa-lock"></i>
+          Your message will be sent securely to the Galaxy Store owner.
+        </p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer><div class="foot"><div><h3>Galaxy Store</h3><p>Discover stylish fashion, beautiful dresses and premium products at Galaxy Store.</p><p>Your style. Your choice. Your Galaxy.</p></div><div><h3>Shop</h3><p><a href="dress.html">Dresses</a></p><p><a href="new-arrivals.html">New Arrivals</a></p><p><a href="best-sellers.html">Best Sellers</a></p></div><div><h3>Customer Care</h3><p><a href="#">Contact Us</a></p><p><a href="#">Shipping</a></p><p><a href="#">Returns</a></p><p><a href="review.html">Reviews</a></p></div><div><h3>Follow Us</h3><p><a href="https://www.facebook.com/">Facebook</a></p><p><a href="https://www.instagram.com/">Instagram</a></p><p><a href="https://www.tiktok.com/">TikTok</a></p></div></div><div class="copy">© 2026 Galaxy Store. All Rights Reserved.</div></footer>
+<script>
+const cart=JSON.parse(localStorage.getItem('galaxyCart')||'[]');document.getElementById('cartCount').textContent=cart.reduce((s,x)=>s+Number(x.quantity||1),0);
+const stars=document.querySelectorAll('#stars button'),rating=document.getElementById('rating'),rt=document.getElementById('ratingText');stars.forEach(b=>b.onclick=()=>{let n=+b.dataset.r;rating.value=n;stars.forEach(x=>x.classList.toggle('active',+x.dataset.r<=n));rt.textContent=n+' out of 5 stars selected';});
+document.getElementById('reviewForm').onsubmit=e=>{if(!rating.value){e.preventDefault();let t=document.getElementById('toast');t.textContent='Please select your rating first.';t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}};
+document.querySelectorAll('.dropbtn').forEach(b=>b.onclick=e=>{e.stopPropagation();let d=b.parentElement;document.querySelectorAll('.drop').forEach(x=>x!==d&&x.classList.remove('open'));d.classList.toggle('open')});
+const st=document.getElementById('searchToggle'),sp=document.getElementById('searchPanel'),si=document.getElementById('searchInput');st.onclick=e=>{e.stopPropagation();sp.classList.toggle('show');st.innerHTML=sp.classList.contains('show')?'<i class="fa-solid fa-xmark"></i>':'<i class="fa-solid fa-magnifying-glass"></i>';if(sp.classList.contains('show'))si.focus()};sp.onclick=e=>e.stopPropagation();document.addEventListener('click',()=>{sp.classList.remove('show');document.querySelectorAll('.drop').forEach(x=>x.classList.remove('open'));st.innerHTML='<i class="fa-solid fa-magnifying-glass"></i>'});document.getElementById('searchSubmit').onclick=()=>{if(si.value.trim())location.href='shop.html?search='+encodeURIComponent(si.value.trim())};si.onkeydown=e=>{if(e.key==='Enter')document.getElementById('searchSubmit').click()};
+</script></body></html>

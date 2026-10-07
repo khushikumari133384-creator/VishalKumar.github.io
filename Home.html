@@ -1,0 +1,2295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galaxy Store Navbar</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#fff;
+}
+
+/* ================= TOP DARK BAR ================= */
+
+.top-bar{
+    height:60px;
+    background:#10101d;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.top-container{
+    width:1100px;
+    max-width:calc(100% - 40px);
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.top-left,
+.top-right{
+    height:100%;
+    display:flex;
+    align-items:center;
+}
+
+.top-item{
+    height:100%;
+    padding:0 22px;
+    display:flex;
+    align-items:center;
+    gap:13px;
+    white-space:nowrap;
+    font-size:15px;
+}
+
+.top-item i{
+    color:#fff;
+    font-size:16px;
+}
+
+.top-divider{
+    width:1px;
+    height:58%;
+    background:rgba(255,255,255,.13);
+}
+
+.social-icons{
+    display:flex;
+    align-items:center;
+    gap:19px;
+    padding:0 24px;
+}
+
+.social-icons a{
+    color:#fff;
+    font-size:16px;
+    transition:.2s;
+}
+
+.social-icons a:hover{
+    color:#ff5d64;
+}
+
+.cart{
+    width:58px;
+    height:60px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    color:#fff;
+    text-decoration:none;
+}
+
+.cart i{
+    font-size:17px;
+}
+
+.cart-number{
+    position:absolute;
+    top:7px;
+    right:7px;
+    width:22px;
+    height:22px;
+    border-radius:50%;
+    background:#333342;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:11px;
+    font-weight:bold;
+}
+
+.search{
+    width:58px;
+    height:60px;
+    background:#343342;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:18px;
+    transition:.2s;
+    text-decoration:none;
+}
+
+.search:hover{
+    background:#414152;
+}
+
+/* ================= WHITE NAVBAR ================= */
+
+.navbar{
+    height:123px;
+    background:#fff;
+    border-bottom:1px solid #eeeeee;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.nav-container{
+    width:1100px;
+    max-width:calc(100% - 40px);
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+/* LOGO */
+
+.logo{
+    width:300px;
+    height:100%;
+    display:flex;
+    align-items:center;
+}
+
+.logo img{
+    width:260px;
+    max-height:150px;
+    object-fit:contain;
+    display:block;
+}
+
+/* NAVIGATION */
+
+.nav-menu{
+    height:100%;
+    display:flex;
+    align-items:center;
+    gap:37px;
+}
+
+.nav-menu > a,
+.dropdown-wrap > .drop-btn{
+    height:100%;
+    display:flex;
+    align-items:center;
+    color:#171724;
+    text-decoration:none;
+    font-size:16px;
+    font-weight:700;
+    white-space:nowrap;
+    transition:.2s;
+}
+
+.nav-menu > a:hover,
+
+.dropdown-wrap > .drop-btn:hover,
+.dropdown-wrap.open > .drop-btn{
+    color:#ff5d64;
+}
+
+/* ================= CLICKABLE DROPDOWN BUTTONS ================= */
+
+.dropdown-wrap{
+    height:100%;
+    position:relative;
+    display:flex;
+    align-items:center;
+}
+
+.drop-btn{
+    border:0;
+    background:transparent;
+    font-family:inherit;
+    cursor:pointer;
+    gap:12px;
+    padding:0;
+}
+
+.drop-btn i{
+    font-size:11px;
+    transition:transform .25s ease;
+}
+
+.dropdown-wrap.open .drop-btn i{
+    transform:rotate(180deg);
+}
+
+/* Dropdown menu */
+
+.dropdown-menu{
+    position:absolute;
+    top:100%;
+    right:0;
+    min-width:190px;
+    background:#fff;
+    border:1px solid #eeeeee;
+    box-shadow:0 10px 28px rgba(0,0,0,.12);
+    padding:8px 0;
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(8px);
+    transition:.2s ease;
+    z-index:1000;
+}
+
+.dropdown-wrap.open .dropdown-menu{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+}
+
+.dropdown-menu a{
+    display:block;
+    padding:13px 18px;
+    color:#171724;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:600;
+    transition:.2s;
+}
+
+.dropdown-menu a:hover{
+    background:#f8f8f8;
+    color:#ff5d64;
+}
+
+
+/* ================= SEARCH PANEL ================= */
+
+.search-panel{
+    position:absolute;
+    top:60px;
+    right:max(0px, calc((100vw - 1100px) / 2));
+    width:775px;
+    height:68px;
+    background:#fff;
+    display:flex;
+    align-items:stretch;
+    z-index:2000;
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-8px);
+    transition:opacity .2s ease, transform .2s ease, visibility .2s ease;
+}
+
+.search-panel.show{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+}
+
+.search-input-wrap{
+    flex:1;
+    display:flex;
+    align-items:center;
+    background:#f2f2f2;
+    border-right:1px solid #ddd;
+}
+
+.search-input{
+    width:100%;
+    height:100%;
+    border:0;
+    outline:0;
+    background:#f2f2f2;
+    padding:0 14px;
+    font-size:18px;
+    color:#555;
+}
+
+.search-input::placeholder{
+    color:#888;
+}
+
+.search-category{
+    width:225px;
+    height:100%;
+    border:0;
+    outline:0;
+    background:#f2f2f2;
+    padding:0 18px;
+    font-size:17px;
+    color:#666;
+    cursor:pointer;
+    border-right:1px solid #ddd;
+}
+
+.search-submit{
+    width:58px;
+    height:100%;
+    border:0;
+    background:#ff5d64;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:20px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.search-submit:hover{
+    background:#f04e56;
+}
+
+.search-close{
+    width:58px;
+    height:60px;
+    border:0;
+    background:#ff5d64;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:18px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.search-close:hover{
+    background:#f04e56;
+}
+
+.search{
+    border:0;
+    cursor:pointer;
+    padding:0;
+    font-family:inherit;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1100px){
+
+    .top-item{
+        padding:0 10px;
+        font-size:13px;
+    }
+
+    .nav-menu{
+        gap:21px;
+    }
+
+    .nav-menu > a,
+    .dropdown-wrap > .drop-btn{
+        font-size:14px;
+    }
+
+    .logo{
+        width:200px;
+    }
+
+    .logo img{
+        width:180px;
+    }
+}
+
+
+@media(max-width:850px){
+
+    .search-panel{
+        position:fixed;
+        top:60px;
+        left:10px;
+        right:10px;
+        width:auto;
+        height:58px;
+    }
+
+    .search-category{
+        width:170px;
+        font-size:14px;
+    }
+
+    .search-input{
+        font-size:15px;
+    }
+
+    .search-submit{
+        width:50px;
+    }
+
+    .search-close{
+        width:50px;
+        height:58px;
+    }
+
+    .top-bar{
+        height:auto;
+        padding:10px 0;
+    }
+
+    .top-container{
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:5px;
+    }
+
+    .top-left,
+    .top-right{
+        height:auto;
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+    .top-divider{
+        display:none;
+    }
+
+    .navbar{
+        height:auto;
+        padding:20px 0;
+    }
+
+    .nav-container{
+        flex-direction:column;
+        gap:18px;
+    }
+
+    .logo{
+        width:auto;
+        height:auto;
+    }
+
+    .nav-menu{
+        height:auto;
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:14px 22px;
+    }
+
+    .nav-menu > a,
+    .dropdown-wrap,
+    .dropdown-wrap > .drop-btn{
+        height:35px;
+    }
+
+    .dropdown-menu{
+        top:35px;
+        right:50%;
+        transform:translate(50%,8px);
+    }
+
+    .dropdown-wrap.open .dropdown-menu{
+        transform:translate(50%,0);
+    }
+}
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #fff;
+}
+
+/* =========================
+   HERO SLIDER
+========================= */
+
+.hero {
+    width: 100%;
+    height: 565px;
+    position: relative;
+    overflow: hidden;
+    background: #b9d7fa;
+}
+
+/* Slides */
+
+.slides {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.7s ease;
+}
+
+.slide.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Background image */
+
+.slide-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/*
+   This covers the original card that is already
+   inside your uploaded image.
+*/
+
+.left-cover {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 39%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        rgba(172, 208, 246, 0.98),
+        rgba(174, 210, 247, 0.92)
+    );
+}
+
+/* =========================
+   DARK CARD
+========================= */
+
+.hero-card {
+    position: absolute;
+    left: 12%;
+    top: 110px;
+
+    width: 465px;
+    min-height: 345px;
+
+    background: rgba(31, 53, 65, 0.88);
+
+    padding: 30px 25px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(255,255,255,0.12);
+
+    box-shadow: 0 12px 35px rgba(0,0,0,0.12);
+}
+
+/* dotted inside border */
+
+.hero-card::before {
+    content: "";
+    position: absolute;
+    inset: 14px;
+    border: 1px dotted rgba(255,255,255,0.7);
+    pointer-events: none;
+}
+
+/* Small heading */
+
+.hero-card .small-title {
+    position: relative;
+    z-index: 2;
+
+    color: white;
+    font-size: 50px;
+    font-weight: 300;
+    line-height: 1;
+    margin-bottom: 15px;
+}
+
+/* Main heading */
+
+.hero-card h1 {
+    position: relative;
+    z-index: 2;
+
+    color: white;
+    font-size: 48px;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: 1px;
+
+    margin-bottom: 28px;
+}
+
+/* Description */
+
+.hero-card p {
+    position: relative;
+    z-index: 2;
+
+    color: white;
+    font-size: 24px;
+    font-weight: 500;
+    text-align: center;
+
+    margin-bottom: 32px;
+}
+
+/* Button */
+
+.shop-btn {
+    position: relative;
+    z-index: 2;
+
+    border: none;
+    background: #ff7778;
+    color: white;
+
+    padding: 14px 25px;
+
+    font-size: 20px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+.shop-btn:hover {
+    background: #ff5d60;
+    transform: translateY(-2px);
+}
+
+/* =========================
+   SLIDER DOTS
+========================= */
+
+.slider-dots {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    display: flex;
+    gap: 10px;
+
+    z-index: 20;
+}
+
+.dot {
+    width: 17px;
+    height: 17px;
+
+    border-radius: 50%;
+
+    background: #d0d0d0;
+
+    border: none;
+
+    cursor: pointer;
+
+    transition: 0.3s ease;
+}
+
+.dot.active {
+    background: #ff7778;
+    transform: scale(1.15);
+}
+
+/* =========================
+   ARROWS
+========================= */
+
+.slider-arrow {
+    position: absolute;
+
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 45px;
+    height: 45px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: rgba(255,255,255,0.65);
+
+    color: #333;
+
+    font-size: 22px;
+
+    cursor: pointer;
+
+    z-index: 30;
+
+    transition: 0.3s;
+}
+
+.slider-arrow:hover {
+    background: white;
+}
+
+.prev {
+    left: 20px;
+}
+
+.next {
+    right: 20px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 1100px) {
+
+    .hero-card {
+        left: 8%;
+        width: 420px;
+    }
+
+    .hero-card .small-title {
+        font-size: 42px;
+    }
+
+    .hero-card h1 {
+        font-size: 42px;
+    }
+
+    .hero-card p {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 750px) {
+
+    .hero {
+        height: 600px;
+    }
+
+    .left-cover {
+        width: 100%;
+        background: rgba(168, 205, 245, 0.75);
+    }
+
+    .hero-card {
+        left: 50%;
+        transform: translateX(-50%);
+
+        top: 100px;
+
+        width: 90%;
+        max-width: 460px;
+    }
+
+    .hero-card .small-title {
+        font-size: 38px;
+    }
+
+    .hero-card h1 {
+        font-size: 40px;
+    }
+
+    .hero-card p {
+        font-size: 18px;
+    }
+
+    .slider-arrow {
+        display: none;
+    }
+}
+
+/* Messenger Button */
+    .messenger-btn {
+      position: fixed;
+      right: 25px;
+      bottom: 25px;
+
+      width: 62px;
+      height: 62px;
+
+      border-radius: 50%;
+      background: #ed1971;
+      color: white;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 36px;
+      text-decoration: none;
+
+      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.25);
+
+      cursor: pointer;
+      z-index: 9999;
+
+      transition: 
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        background 0.3s ease;
+    }
+
+    /* Hover Effect */
+    .messenger-btn:hover {
+      transform: scale(1.12) translateY(-4px);
+      background: #d91465;
+      box-shadow: 0 10px 25px rgba(237, 25, 113, 0.45);
+    }
+
+    /* Icon */
+    .messenger-btn i {
+      transition: transform 0.3s ease;
+    }
+
+    .messenger-btn:hover i {
+      transform: rotate(-8deg) scale(1.08);
+    }
+
+    /* Click Effect */
+    .messenger-btn:active {
+      transform: scale(0.95);
+    }
+    
+
+
+/* =========================================================
+   GALAXY STORE — NEW HOME SECTIONS
+   Uses the same Arial theme as the original code.
+   Existing navbar/hero styles are not changed.
+========================================================= */
+
+.galaxy-home-additions{
+    width:100%;
+    background:#fff;
+}
+
+/* CATEGORY ICONS */
+.galaxy-categories{
+    width:1100px;
+    max-width:calc(100% - 40px);
+    margin:0 auto;
+    padding:28px 0 25px;
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:25px;
+}
+
+.galaxy-category{
+    text-align:center;
+    text-decoration:none;
+    color:#171724;
+    transition:.25s ease;
+}
+
+.galaxy-category:hover{
+    transform:translateY(-3px);
+}
+
+.galaxy-category-icon{
+    width:68px;
+    height:68px;
+    margin:0 auto 9px;
+    border-radius:50%;
+    background:#faf0f0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#a87979;
+    font-size:25px;
+}
+
+.galaxy-category h4{
+    font-size:16px;
+    font-weight:700;
+    margin-bottom:3px;
+}
+
+.galaxy-category span{
+    font-size:16px;
+    color:#555;
+}
+
+/* MOST LOVED */
+.galaxy-loved{
+    width:1100px;
+    max-width:calc(100% - 40px);
+    margin:0 auto;
+    padding:15px 0 38px;
+}
+
+.galaxy-section-heading{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    margin-bottom:18px;
+}
+
+.galaxy-kicker{
+    font-size:16px;
+    font-weight:700;
+    letter-spacing:2px;
+    color:#8f7272;
+    margin-bottom:4px;
+}
+
+.galaxy-title{
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:27px;
+    line-height:1.15;
+    font-weight:400;
+    color:#171724;
+}
+
+.galaxy-view-all{
+    font-size:16px;
+    color:#555;
+    text-decoration:none;
+}
+
+.galaxy-product-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+}
+
+.galaxy-product-card{
+    display:block;
+    color:#171724;
+    text-decoration:none;
+    min-width:0;
+}
+
+.galaxy-product-image{
+    position:relative;
+    width:100%;
+    aspect-ratio:1 / 1.08;
+    overflow:hidden;
+    background:#f3efeb;
+}
+
+.galaxy-product-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+    transition:transform .45s ease;
+}
+
+.galaxy-product-card:hover .galaxy-product-image img{
+    transform:scale(1.04);
+}
+
+.galaxy-discount{
+    position:absolute;
+    left:8px;
+    top:8px;
+    z-index:2;
+    background:#a86f6f;
+    color:#fff;
+    border-radius:12px;
+    padding:4px 7px;
+    font-size:16px;
+}
+
+.galaxy-wishlist{
+    position:absolute;
+    right:8px;
+    top:8px;
+    z-index:2;
+    width:22px;
+    height:22px;
+    border-radius:50%;
+    background:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:16px;
+}
+
+.galaxy-product-name{
+    font-size:16px;
+    font-weight:700;
+    margin-top:8px;
+}
+
+.galaxy-price{
+    margin-top:3px;
+    font-size:16px;
+}
+
+.galaxy-old-price{
+    color:#999;
+    text-decoration:line-through;
+    margin-left:5px;
+}
+
+.galaxy-stars{
+    color:#c18a3d;
+    font-size:16px;
+    margin-top:3px;
+}
+
+.galaxy-reviews{
+    color:#777;
+    margin-left:4px;
+}
+
+.galaxy-colors{
+    display:flex;
+    gap:4px;
+    margin-top:5px;
+}
+
+.galaxy-color{
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    border:1px solid #ddd;
+}
+
+/* OFFER */
+.galaxy-offer{
+    width:100%;
+    background:#f8efeb;
+}
+
+.galaxy-offer-inner{
+    width:1100px;
+    max-width:calc(100% - 40px);
+    min-height:178px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:40% 60%;
+}
+
+.galaxy-offer-text{
+    padding:25px 45px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.galaxy-offer-kicker{
+    font-size:16px;
+    letter-spacing:1.7px;
+    color:#a87979;
+    font-weight:700;
+}
+
+.galaxy-offer-title{
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:29px;
+    font-weight:400;
+    margin:4px 0 5px;
+}
+
+.galaxy-offer-text p{
+    font-size:16px;
+    line-height:1.6;
+    color:#666;
+    max-width:230px;
+}
+
+.galaxy-offer-btn{
+    width:max-content;
+    margin-top:11px;
+    padding:8px 17px;
+    border-radius:18px;
+    background:#aa7474;
+    color:#fff;
+    text-decoration:none;
+    font-size:16px;
+}
+
+.galaxy-offer-image{
+    min-height:178px;
+    background:
+        linear-gradient(rgba(255,255,255,.05),rgba(255,255,255,.05)),
+        url("offer-banner.jpg") center/cover no-repeat;
+}
+
+/* SERVICES */
+.galaxy-services{
+    width:1100px;
+    max-width:calc(100% - 40px);
+    margin:0 auto;
+    min-height:78px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    border-bottom:1px solid #eee;
+}
+
+.galaxy-service{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:12px;
+    border-right:1px solid #eee;
+}
+
+.galaxy-service:last-child{
+    border-right:0;
+}
+
+.galaxy-service i{
+    font-size:20px;
+    color:#343434;
+}
+
+.galaxy-service h5{
+    font-size:16px;
+    font-weight:700;
+    margin-bottom:2px;
+}
+
+.galaxy-service p{
+    font-size:16px;
+    color:#888;
+}
+
+/* MAP */
+.galaxy-map-section{
+    background:#faf8f7;
+    padding:55px 0;
+}
+
+.galaxy-map-inner{
+    width:1100px;
+    max-width:calc(100% - 40px);
+    min-height:380px;
+    margin:0 auto;
+    background:#fff;
+    display:grid;
+    grid-template-columns:40% 60%;
+    box-shadow:0 8px 30px rgba(0,0,0,.06);
+}
+
+.galaxy-map-text{
+    padding:45px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.galaxy-map-text .galaxy-kicker{
+    margin-bottom:3px;
+}
+
+.galaxy-map-text h2{
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:32px;
+    font-weight:400;
+    margin:7px 0 13px;
+}
+
+.galaxy-map-text p{
+    font-size:16px;
+    line-height:1.8;
+    color:#777;
+}
+
+.galaxy-map-info{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    margin-top:22px;
+}
+
+.galaxy-map-info div{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    font-size:18px;
+}
+
+.galaxy-map-info i{
+    width:20px;
+    color:#a87979;
+}
+
+.galaxy-map-frame{
+    position:relative;
+    min-height:380px;
+}
+
+.galaxy-map-frame iframe{
+    width:100%;
+    height:100%;
+    min-height:380px;
+    border:0;
+    display:block;
+}
+
+.galaxy-map-open{
+    position:absolute;
+    right:16px;
+    bottom:16px;
+    padding:9px 14px;
+    background:#10101d;
+    color:#fff;
+    text-decoration:none;
+    font-size:13px;
+}
+
+/* FOOTER */
+.galaxy-footer{
+    background:#10101d;
+    color:#fff;
+    padding:55px 0 18px;
+}
+
+.galaxy-footer-inner{
+    width:1100px;
+    max-width:calc(100% - 40px);
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr 1.5fr;
+    gap:40px;
+}
+
+.galaxy-footer-logo{
+    width:180px;
+    max-height:90px;
+    object-fit:contain;
+    margin-bottom:15px;
+}
+
+.galaxy-footer-about p{
+    max-width:280px;
+    color:#aaa;
+    font-size:16px;
+    line-height:1.8;
+}
+
+.galaxy-footer h4{
+    font-size:16px;
+    margin-bottom:16px;
+}
+
+.galaxy-footer a{
+    display:block;
+    color:#aaa;
+    text-decoration:none;
+    font-size:16px;
+    margin-bottom:9px;
+    transition:.2s;
+}
+
+.galaxy-footer a:hover{
+    color:#fff;
+}
+
+.galaxy-footer-contact{
+    color:#aaa;
+    font-size:16px;
+    line-height:2;
+}
+
+.galaxy-footer-contact i{
+    width:18px;
+}
+
+.galaxy-social{
+    display:flex;
+    gap:9px;
+    margin-top:15px;
+}
+
+.galaxy-social a{
+    width: 40px;
+    height:40px;
+    border:1px solid #444;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    margin:0;
+}
+
+.galaxy-footer-bottom{
+    width:1100px;
+    max-width:calc(100% - 40px);
+    margin:38px auto 0;
+    padding-top:17px;
+    border-top:1px solid #2c2c36;
+    text-align:center;
+    color:#777;
+    font-size:20px;
+}
+
+/* NEW SECTIONS RESPONSIVE */
+@media(max-width:850px){
+
+    .galaxy-categories{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+    .galaxy-product-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .galaxy-offer-inner{
+        grid-template-columns:1fr;
+    }
+
+    .galaxy-offer-image{
+        min-height:180px;
+    }
+
+    .galaxy-services{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .galaxy-service{
+        min-height:75px;
+        border-bottom:1px solid #eee;
+    }
+
+    .galaxy-map-inner{
+        grid-template-columns:1fr;
+    }
+
+    .galaxy-map-frame,
+    .galaxy-map-frame iframe{
+        min-height:320px;
+    }
+
+    .galaxy-footer-inner{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+@media(max-width:500px){
+
+    .galaxy-categories{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .galaxy-section-heading{
+        align-items:flex-start;
+    }
+
+    .galaxy-title{
+        font-size:22px;
+    }
+
+    .galaxy-footer-inner{
+        grid-template-columns:1fr;
+    }
+
+    .galaxy-map-text{
+        padding:30px;
+    }
+}
+
+</style>
+</head>
+<body>
+
+  <!-- Messenger Button -->
+  <a href="https://www.messenger.com/login" class="messenger-btn" aria-label="Messenger">
+
+    <i class="fa-brands fa-facebook-messenger"></i>
+  </a>
+
+</body>
+<body>
+
+<!-- ================= DARK TOP BAR ================= -->
+
+<div class="top-bar">
+    <div class="top-container">
+
+        <div class="top-left">
+
+            <div class="top-item">
+                <i class="fa-solid fa-location-dot"></i>
+                <span>Kathmandu, Nepal</span>
+            </div>
+
+            <div class="top-divider"></div>
+
+            <div class="top-item">
+                <i class="fa-solid fa-phone"></i>
+                <span>+977-9851185313</span>
+            </div>
+
+            <div class="top-divider"></div>
+
+            <div class="top-item">
+                <i class="fa-regular fa-envelope"></i>
+                <span>sales@clothesnepal.com</span>
+            </div>
+
+        </div>
+
+        <div class="top-right">
+
+            <div class="social-icons">
+                <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+                <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+            </div>
+
+            <div class="top-divider"></div>
+
+            <a href="Registor.html"
+               class="top-item"
+               style="color:white;text-decoration:none">
+
+                <i class="fa-regular fa-user"></i>
+                <span>Login / Register</span>
+
+            </a>
+
+            <div class="top-divider"></div>
+
+            <a href="Cart.html" class="cart">
+                <i class="fa-solid fa-cart-shopping"></i>
+                
+            </a>
+
+            <button type="button" class="search search-toggle" id="searchToggle" aria-label="Open search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- ================= SEARCH PANEL ================= -->
+<div class="search-panel" id="searchPanel">
+
+    <div class="search-input-wrap">
+        <input
+            type="text"
+            class="search-input"
+            id="searchInput"
+            placeholder="Search Products ..."
+            autocomplete="off">
+    </div>
+
+    <select class="search-category" id="searchCategory">
+        <option value="">Select Category</option>
+        <option value="dress">Dress</option>
+        <option value="bags">Bags</option>
+        <option value="jackets">Jackets</option>
+        <option value="pants">Pants</option>
+        <option value="shoes">Shoes</option>
+        <option value="swimsuit">Swimsuit</option>
+        <option value="baby">Baby City</option>
+        <option value="underthings">Underthings</option>
+    </select>
+
+    <button type="button" class="search-submit" id="searchSubmit" aria-label="Search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+
+    
+
+</div>
+
+
+<!-- ================= WHITE NAVIGATION BAR ================= -->
+
+<nav class="navbar">
+
+    <div class="nav-container">
+
+        <!-- LOGO -->
+        <div class="logo">
+            <a href="Home.html">
+                <img src="Galaxy Store.png" alt="Galaxy Store">
+            </a>
+        </div>
+
+
+        <div class="nav-menu">
+
+            <a href="Dress.html" class="active">DRESS</a>
+
+            <a href="bags.html">BAGS</a>
+
+            <a href="jackets.html">JACKETS</a>
+
+            <a href="pants.html">PANTS</a>
+
+            <a href="Spin.html">Discount Spin</a>
+
+            <a href="Review.html">REVIEWS</a>
+
+
+            <!-- BABY CITY CLICKABLE DROPDOWN -->
+            <div class="dropdown-wrap">
+
+                <button class="drop-btn" type="button">
+                    BABY CITY
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+
+                <div class="dropdown-menu">
+
+                    <a href="baby-dresses.html">Baby Dresses</a>
+                    <a href="baby-shoes.html">Baby Shoes</a>
+                    <a href="baby-accessories.html">Baby Accessories</a>
+
+                </div>
+
+            </div>
+
+
+            <!-- UNDERTHINGS CLICKABLE DROPDOWN -->
+            <div class="dropdown-wrap">
+
+                <button class="drop-btn" type="button">
+                    UNDERTHINGS
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+
+                <div class="dropdown-menu">
+
+                    <a href="bras.html">Bras</a>
+                    <a href="panties.html">Panties</a>
+                    <a href="innerwear.html">Innerwear</a>
+
+                </div>
+
+            </div>
+    
+
+            <!-- SHOP CLICKABLE DROPDOWN -->
+            <div class="dropdown-wrap">
+
+                <button class="drop-btn" type="button">
+                    SHOP
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+
+                <div class="dropdown-menu">
+
+                    <a href="new-arrivals.html">New Arrivals</a>
+                    <a href="best-sellers.html">Best Sellers</a>
+                    <a href="sale.html">Sale</a>
+                    <a href="all-products.html">All Products</a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</nav>
+<section class="hero">
+
+    <div class="slides">
+
+        <!-- SLIDE 1 -->
+        <div class="slide active">
+
+            <img src="Banner.png" class="slide-bg">
+
+            <div class="left-cover"></div>
+
+            <div class="hero-card">
+
+                <div class="small-title">
+                    Summer
+                </div>
+
+                <h1>
+                    DRESSES
+                </h1>
+
+                <p>
+                    FREE DELIVERY ALL OVER NEPAL
+                </p>
+
+                <button class="shop-btn">
+                    SHOP NOW
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- SLIDE 2 -->
+        <div class="slide">
+
+            <img src="Banner1.png" class="slide-bg">
+
+            <div class="left-cover"></div>
+
+            <div class="hero-card">
+
+                <div class="small-title">
+                    New
+                </div>
+
+                <h1>
+                    FASHION
+                </h1>
+
+                <p>
+                    FREE DELIVERY ALL OVER NEPAL
+                </p>
+
+                <button class="shop-btn">
+                    SHOP NOW
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- SLIDE 3 -->
+        <div class="slide">
+
+            <img src="Banner2.png" class="slide-bg">
+
+            <div class="left-cover"></div>
+
+            <div class="hero-card">
+
+                <div class="small-title">
+                    Trending
+                </div>
+
+                <h1>
+                    BAGS
+                </h1>
+
+                <p>
+                    FREE DELIVERY ALL OVER NEPAL
+                </p>
+
+                <button class="shop-btn">
+                    SHOP NOW
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- LEFT ARROW -->
+
+    <button class="slider-arrow prev" onclick="changeSlide(-1)">
+        &#10094;
+    </button>
+
+
+    <!-- RIGHT ARROW -->
+
+    <button class="slider-arrow next" onclick="changeSlide(1)">
+        &#10095;
+    </button>
+
+
+    <!-- DOTS -->
+
+    <div class="slider-dots">
+
+        <button class="dot active" onclick="goToSlide(0)"></button>
+
+        <button class="dot" onclick="goToSlide(1)"></button>
+
+        <button class="dot" onclick="goToSlide(2)"></button>
+
+    </div>
+
+</section>
+
+
+<script>
+
+/* ================= CLICKABLE DROPDOWNS ================= */
+
+const dropdowns = document.querySelectorAll(".dropdown-wrap");
+
+dropdowns.forEach(dropdown => {
+
+    const button = dropdown.querySelector(".drop-btn");
+
+    button.addEventListener("click", function(event){
+
+        event.stopPropagation();
+
+        dropdowns.forEach(other => {
+            if(other !== dropdown){
+                other.classList.remove("open");
+            }
+        });
+
+        dropdown.classList.toggle("open");
+    });
+});
+
+
+/* ================= SEARCH PANEL ================= */
+
+const searchToggle = document.getElementById("searchToggle");
+const searchPanel = document.getElementById("searchPanel");
+const searchInput = document.getElementById("searchInput");
+const searchSubmit = document.getElementById("searchSubmit");
+
+function openSearch(){
+    searchPanel.classList.add("show");
+    searchToggle.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+    searchToggle.setAttribute("aria-label", "Close search");
+    setTimeout(() => searchInput.focus(), 150);
+}
+
+function closeSearch(){
+    searchPanel.classList.remove("show");
+    searchToggle.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i>';
+    searchToggle.setAttribute("aria-label", "Open search");
+}
+
+searchToggle.addEventListener("click", function(event){
+    event.stopPropagation();
+
+    if(searchPanel.classList.contains("show")){
+        closeSearch();
+    }else{
+        openSearch();
+    }
+});
+
+searchPanel.addEventListener("click", function(event){
+    event.stopPropagation();
+});
+
+searchSubmit.addEventListener("click", function(){
+    const query = searchInput.value.trim();
+
+    if(query){
+        // Change this to your real search page when you build it.
+        window.location.href = "shop.html?search=" + encodeURIComponent(query);
+    }
+});
+
+searchInput.addEventListener("keydown", function(event){
+    if(event.key === "Enter"){
+        searchSubmit.click();
+    }
+
+    if(event.key === "Escape"){
+        closeSearch();
+    }
+});
+
+
+/* Close dropdown/search when clicking elsewhere */
+
+document.addEventListener("click", function(){
+
+    dropdowns.forEach(dropdown => {
+        dropdown.classList.remove("open");
+    });
+
+    if(searchPanel.classList.contains("show")){
+        closeSearch();
+    }
+});
+
+</script>
+<script>
+
+let currentSlide = 0;
+
+const slides = document.querySelectorAll(".slide");
+const dots = document.querySelectorAll(".dot");
+
+
+function showSlide(index) {
+
+    if (index >= slides.length) {
+        currentSlide = 0;
+    }
+
+    else if (index < 0) {
+        currentSlide = slides.length - 1;
+    }
+
+    else {
+        currentSlide = index;
+    }
+
+    slides.forEach((slide) => {
+        slide.classList.remove("active");
+    });
+
+    dots.forEach((dot) => {
+        dot.classList.remove("active");
+    });
+
+    slides[currentSlide].classList.add("active");
+    dots[currentSlide].classList.add("active");
+}
+
+
+function changeSlide(direction) {
+    showSlide(currentSlide + direction);
+}
+
+
+function goToSlide(index) {
+    showSlide(index);
+}
+
+
+/* AUTO SLIDE */
+
+setInterval(() => {
+    changeSlide(1);
+}, 5000);
+
+</script>
+
+
+
+<!-- =========================================================
+     GALAXY STORE NEW HOME CONTENT
+     Added after the existing hero/slider.
+========================================================= -->
+
+<div class="galaxy-home-additions">
+
+    <!-- CATEGORY ICONS -->
+    <section class="galaxy-categories">
+
+        <a href="Dress.html" class="galaxy-category">
+            <div class="galaxy-category-icon">
+                <i class="fa-solid fa-person-dress"></i>
+            </div>
+            <h4>Dresses</h4>
+            <span>Shop Now →</span>
+        </a>
+
+        <a href="tops.html" class="galaxy-category">
+            <div class="galaxy-category-icon">
+                <i class="fa-solid fa-shirt"></i>
+            </div>
+            <h4>Tops</h4>
+            <span>Shop Now →</span>
+        </a>
+
+        <a href="pants.html" class="galaxy-category">
+            <div class="galaxy-category-icon">
+                <i class="fa-solid fa-person-walking"></i>
+            </div>
+            <h4>Pants</h4>
+            <span>Shop Now →</span>
+        </a>
+
+        <a href="jackets.html" class="galaxy-category">
+            <div class="galaxy-category-icon">
+                <i class="fa-solid fa-vest"></i>
+            </div>
+            <h4>Jackets</h4>
+            <span>Shop Now →</span>
+        </a>
+
+        <a href="bags.html" class="galaxy-category">
+            <div class="galaxy-category-icon">
+                <i class="fa-solid fa-bag-shopping"></i>
+            </div>
+            <h4>Bags</h4>
+            <span>Shop Now →</span>
+        </a>
+
+        <a href="shoes.html" class="galaxy-category">
+            <div class="galaxy-category-icon">
+                <i class="fa-solid fa-shoe-prints"></i>
+            </div>
+            <h4>Shoes</h4>
+            <span>Shop Now →</span>
+        </a>
+
+    </section>
+
+
+    <!-- MOST LOVED STYLES -->
+    <section class="galaxy-loved">
+
+        <div class="galaxy-section-heading">
+
+            <div>
+                <div class="galaxy-kicker">BEST SELLERS</div>
+                <h2 class="galaxy-title">Most Loved Styles</h2>
+            </div>
+
+            <a href="Dress.html" class="galaxy-view-all">View All →</a>
+
+        </div>
+
+
+        <div class="galaxy-product-grid">
+
+            <a href="Dress.html" class="galaxy-product-card">
+
+                <div class="galaxy-product-image">
+                    <span class="galaxy-discount">-20%</span>
+
+                    <span class="galaxy-wishlist">
+                        <i class="fa-regular fa-heart"></i>
+                    </span>
+
+                    <img src="Green.jpg" alt="Floral Midi Dress">
+                </div>
+
+                <div class="galaxy-product-name">Floral Midi Dress</div>
+
+                <div class="galaxy-price">
+                    $39.99
+                    <span class="galaxy-old-price">$49.99</span>
+                </div>
+
+                <div class="galaxy-stars">
+                    ★★★★★ <span class="galaxy-reviews">(124)</span>
+                </div>
+
+                <div class="galaxy-colors">
+                    <span class="galaxy-color" style="background:#222"></span>
+                    <span class="galaxy-color" style="background:#c9a49a"></span>
+                    <span class="galaxy-color" style="background:#eee"></span>
+                    <span class="galaxy-color" style="background:#697388"></span>
+                </div>
+
+            </a>
+
+
+            <a href="Dress.html" class="galaxy-product-card">
+
+                <div class="galaxy-product-image">
+
+                    <span class="galaxy-wishlist">
+                        <i class="fa-regular fa-heart"></i>
+                    </span>
+
+                    <img src="Blue.jpg" alt="Ribbed Knit Sweater">
+                </div>
+
+                <div class="galaxy-product-name">Ribbed Knit Sweater</div>
+
+                <div class="galaxy-price">$29.99</div>
+
+                <div class="galaxy-stars">
+                    ★★★★★ <span class="galaxy-reviews">(98)</span>
+                </div>
+
+                <div class="galaxy-colors">
+                    <span class="galaxy-color" style="background:#ded5ca"></span>
+                    <span class="galaxy-color" style="background:#fff"></span>
+                    <span class="galaxy-color" style="background:#222"></span>
+                </div>
+
+            </a>
+
+
+            <a href="Dress.html" class="galaxy-product-card">
+
+                <div class="galaxy-product-image">
+
+                    <span class="galaxy-wishlist">
+                        <i class="fa-regular fa-heart"></i>
+                    </span>
+
+                    <img src="Red.jpg" alt="Elegant Blazer">
+                </div>
+
+                <div class="galaxy-product-name">Elegant Blazer</div>
+
+                <div class="galaxy-price">$59.99</div>
+
+                <div class="galaxy-stars">
+                    ★★★★★ <span class="galaxy-reviews">(76)</span>
+                </div>
+
+                <div class="galaxy-colors">
+                    <span class="galaxy-color" style="background:#bda58c"></span>
+                    <span class="galaxy-color" style="background:#eee"></span>
+                    <span class="galaxy-color" style="background:#222"></span>
+                </div>
+
+            </a>
+
+
+            <a href="Dress.html" class="galaxy-product-card">
+
+                <div class="galaxy-product-image">
+
+                    <span class="galaxy-wishlist">
+                        <i class="fa-regular fa-heart"></i>
+                    </span>
+
+                    <img src="A.png.webp" alt="Wide Leg Pants">
+                </div>
+
+                <div class="galaxy-product-name">Wide Leg Pants</div>
+
+                <div class="galaxy-price">$34.99</div>
+
+                <div class="galaxy-stars">
+                    ★★★★★ <span class="galaxy-reviews">(62)</span>
+                </div>
+
+                <div class="galaxy-colors">
+                    <span class="galaxy-color" style="background:#111"></span>
+                    <span class="galaxy-color" style="background:#555"></span>
+                </div>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- SPECIAL OFFER -->
+    <section class="galaxy-offer">
+
+        <div class="galaxy-offer-inner">
+
+            <div class="galaxy-offer-text">
+
+                <div class="galaxy-offer-kicker">SPECIAL OFFER</div>
+
+                <h2 class="galaxy-offer-title">Up to 50% Off</h2>
+
+                <p>
+                    Refresh your wardrobe with our
+                    exclusive seasonal sale.
+                </p>
+
+                <a href="sale.html" class="galaxy-offer-btn">
+                    Shop Sale →
+                </a>
+
+            </div>
+
+            <div class="galaxy-offer-image"></div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SERVICES -->
+    <section class="galaxy-services">
+
+        <div class="galaxy-service">
+            <i class="fa-solid fa-truck"></i>
+            <div>
+                <h5>Free Shipping</h5>
+                <p>On orders over $50</p>
+            </div>
+        </div>
+
+        <div class="galaxy-service">
+            <i class="fa-solid fa-shield-halved"></i>
+            <div>
+                <h5>Secure Payment</h5>
+                <p>100% secure checkout</p>
+            </div>
+        </div>
+
+        <div class="galaxy-service">
+            <i class="fa-solid fa-arrow-right-arrow-left"></i>
+            <div>
+                <h5>Easy Returns</h5>
+                <p>30-day returns policy</p>
+            </div>
+        </div>
+
+        <div class="galaxy-service">
+            <i class="fa-solid fa-headphones"></i>
+            <div>
+                <h5>24/7 Support</h5>
+                <p>We're here to help</p>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- GALAXY TAILORS MAP -->
+    <section class="galaxy-map-section">
+
+        <div class="galaxy-map-inner">
+
+            <div class="galaxy-map-text">
+
+                <div class="galaxy-kicker">VISIT GALAXY TAILORS</div>
+
+                <h2>Galaxy Tailors</h2>
+
+                <p>
+                    Visit Galaxy Tailors in the Kalimati,
+                    Kathmandu area. Open the map for the
+                    current location and directions.
+                </p>
+
+                <div class="galaxy-map-info">
+
+                    <div>
+                        <i class="fa-solid fa-location-dot"></i>
+                        Kalimati, Kathmandu, Nepal
+                    </div>
+
+                    <div>
+                        <i class="fa-solid fa-store"></i>
+                        Galaxy Tailors
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="galaxy-map-frame">
+
+                <iframe
+                    title="Galaxy Tailors Kalimati Kathmandu"
+                    src="https://www.google.com/maps?q=Galaxy+Tailors+Kalimati+Kathmandu+Nepal&output=embed"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+
+                <a
+                    href="https://www.google.com/maps/search/?api=1&query=Galaxy+Tailors+Kalimati+Kathmandu+Nepal"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="galaxy-map-open">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    Open Map
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer class="galaxy-footer">
+
+        <div class="galaxy-footer-inner">
+
+            <div class="galaxy-footer-about">
+
+                <img
+                    src="Galaxy Store.png"
+                    alt="Galaxy Store"
+                    class="galaxy-footer-logo">
+
+                <p>
+                    Discover fashion made for every
+                    mood, moment and personality.
+                    Shop your favourite styles at
+                    Galaxy Store.
+                </p>
+
+                <div class="galaxy-social">
+
+                    <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-brands fa-facebook-f"></i>
+                    </a>
+
+                    <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+
+                    <a href="#">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div>
+
+                <h4>SHOP</h4>
+
+                <a href="Dress.html">Dresses</a>
+                <a href="tops.html">Tops</a>
+                <a href="pants.html">Pants</a>
+                <a href="jackets.html">Jackets</a>
+                <a href="bags.html">Bags</a>
+                <a href="shoes.html">Shoes</a>
+
+            </div>
+
+
+            <div>
+
+                <h4>HELP</h4>
+
+                <a href="Home.html">Home</a>
+                <a href="Review.html">Reviews</a>
+                <a href="Cart.html">Cart</a>
+                <a href="CheckOut.html">Checkout</a>
+                <a href="sale.html">Sale</a>
+
+            </div>
+
+
+            <div>
+
+                <h4>CONTACT</h4>
+
+                <div class="galaxy-footer-contact">
+
+                    <div>
+                        <i class="fa-solid fa-location-dot"></i>
+                        Kalimati, Kathmandu
+                    </div>
+
+                    <div>
+                        <i class="fa-solid fa-phone"></i>
+                        +977-9851185313
+                    </div>
+
+                    <div>
+                        <i class="fa-regular fa-envelope"></i>
+                        sales@clothesnepal.com
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="galaxy-footer-bottom">
+            © 2026 Galaxy Store. All Rights Reserved.
+            &nbsp; | &nbsp;
+            Made with ♥ for fashion lovers.
+        </div>
+
+    </footer>
+
+</div>
+
+</body>
+</html>

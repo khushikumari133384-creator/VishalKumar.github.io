@@ -1,0 +1,2076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Galaxy Store Navbar</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#fff;
+}
+
+
+/* ================= TOP DARK BAR ================= */
+
+.top-bar{
+    height:60px;
+    background:#10101d;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.top-container{
+    width:1100px;
+    max-width:calc(100% - 40px);
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.top-left,
+.top-right{
+    height:100%;
+    display:flex;
+    align-items:center;
+}
+
+.top-item{
+    height:100%;
+    padding:0 22px;
+    display:flex;
+    align-items:center;
+    gap:13px;
+    white-space:nowrap;
+    font-size:15px;
+}
+
+.top-item i{
+    color:#fff;
+    font-size:16px;
+}
+
+.top-divider{
+    width:1px;
+    height:58%;
+    background:rgba(255,255,255,.13);
+}
+
+.social-icons{
+    display:flex;
+    align-items:center;
+    gap:19px;
+    padding:0 24px;
+}
+
+.social-icons a{
+    color:#fff;
+    font-size:16px;
+    transition:.2s;
+}
+
+.social-icons a:hover{
+    color:#ff5d64;
+}
+
+
+/* ================= CART ================= */
+
+.cart{
+    width:58px;
+    height:60px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    color:#fff;
+    text-decoration:none;
+}
+
+.cart i{
+    font-size:17px;
+}
+
+.cart-number{
+    position:absolute;
+    top:7px;
+    right:7px;
+    width:22px;
+    height:22px;
+    border-radius:50%;
+    background:#333342;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:11px;
+    font-weight:bold;
+}
+
+
+/* ================= SEARCH BUTTON ================= */
+
+.search{
+    width:58px;
+    height:60px;
+    background:#343342;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:18px;
+    transition:.2s;
+    text-decoration:none;
+
+    border:0;
+    cursor:pointer;
+    padding:0;
+    font-family:inherit;
+}
+
+.search:hover{
+    background:#414152;
+}
+
+
+/* ================= WHITE NAVBAR ================= */
+
+.navbar{
+    height:123px;
+    background:#fff;
+    border-bottom:1px solid #eeeeee;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.nav-container{
+    width:1100px;
+    max-width:calc(100% - 40px);
+    height:100%;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+
+/* ================= LOGO ================= */
+
+.logo{
+    width:300px;
+    height:100%;
+
+    display:flex;
+    align-items:center;
+}
+
+.logo a{
+    display:flex;
+    align-items:center;
+}
+
+.logo img{
+    width:260px;
+    max-height:150px;
+    object-fit:contain;
+    display:block;
+}
+
+
+/* ================= NAVIGATION ================= */
+
+.nav-menu{
+    height:100%;
+
+    display:flex;
+    align-items:center;
+    gap:37px;
+}
+
+.nav-menu > a,
+.dropdown-wrap > .drop-btn{
+    height:100%;
+
+    display:flex;
+    align-items:center;
+
+    color:#171724;
+    text-decoration:none;
+
+    font-size:16px;
+    font-weight:700;
+
+    white-space:nowrap;
+    transition:.2s;
+}
+
+.nav-menu > a:hover,
+.dropdown-wrap > .drop-btn:hover,
+.dropdown-wrap.open > .drop-btn{
+    color:#ff5d64;
+}
+
+
+/* ================= DROPDOWN ================= */
+
+.dropdown-wrap{
+    height:100%;
+    position:relative;
+
+    display:flex;
+    align-items:center;
+}
+
+.drop-btn{
+    border:0;
+    background:transparent;
+
+    font-family:inherit;
+    cursor:pointer;
+
+    gap:12px;
+    padding:0;
+}
+
+.drop-btn i{
+    font-size:11px;
+    transition:transform .25s ease;
+}
+
+.dropdown-wrap.open .drop-btn i{
+    transform:rotate(180deg);
+}
+
+
+/* Dropdown Menu */
+
+.dropdown-menu{
+    position:absolute;
+
+    top:100%;
+    right:0;
+
+    min-width:190px;
+
+    background:#fff;
+
+    border:1px solid #eeeeee;
+
+    box-shadow:0 10px 28px rgba(0,0,0,.12);
+
+    padding:8px 0;
+
+    opacity:0;
+    visibility:hidden;
+
+    transform:translateY(8px);
+
+    transition:.2s ease;
+
+    z-index:1000;
+}
+
+.dropdown-wrap.open .dropdown-menu{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+}
+
+.dropdown-menu a{
+    display:block;
+
+    padding:13px 18px;
+
+    color:#171724;
+    text-decoration:none;
+
+    font-size:14px;
+    font-weight:600;
+
+    transition:.2s;
+}
+
+.dropdown-menu a:hover{
+    background:#f8f8f8;
+    color:#ff5d64;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1100px){
+
+    .top-item{
+        padding:0 10px;
+        font-size:13px;
+    }
+
+    .nav-menu{
+        gap:21px;
+    }
+
+    .nav-menu > a,
+    .dropdown-wrap > .drop-btn{
+        font-size:14px;
+    }
+
+    .logo{
+        width:200px;
+    }
+
+    .logo img{
+        width:180px;
+    }
+}
+
+
+@media(max-width:850px){
+
+    .top-bar{
+        height:auto;
+        padding:10px 0;
+    }
+
+    .top-container{
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:5px;
+    }
+
+    .top-left,
+    .top-right{
+        height:auto;
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+    .top-divider{
+        display:none;
+    }
+
+    .navbar{
+        height:auto;
+        padding:20px 0;
+    }
+
+    .nav-container{
+        flex-direction:column;
+        gap:18px;
+    }
+
+    .logo{
+        width:auto;
+        height:auto;
+    }
+
+    .nav-menu{
+        height:auto;
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:14px 22px;
+    }
+
+    .nav-menu > a,
+    .dropdown-wrap,
+    .dropdown-wrap > .drop-btn{
+        height:35px;
+    }
+
+    .dropdown-menu{
+        top:35px;
+        right:50%;
+
+        transform:translate(50%,8px);
+    }
+
+    .dropdown-wrap.open .dropdown-menu{
+        transform:translate(50%,0);
+    }
+}
+ /* Messenger Button */
+    .messenger-btn {
+      position: fixed;
+      right: 25px;
+      bottom: 25px;
+
+      width: 62px;
+      height: 62px;
+
+      border-radius: 50%;
+      background: #ed1971;
+      color: white;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 36px;
+      text-decoration: none;
+
+      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.25);
+
+      cursor: pointer;
+      z-index: 9999;
+
+      transition: 
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        background 0.3s ease;
+    }
+
+    /* Hover Effect */
+    .messenger-btn:hover {
+      transform: scale(1.12) translateY(-4px);
+      background: #d91465;
+      box-shadow: 0 10px 25px rgba(237, 25, 113, 0.45);
+    }
+
+    /* Icon */
+    .messenger-btn i {
+      transition: transform 0.3s ease;
+    }
+
+    .messenger-btn:hover i {
+      transform: rotate(-8deg) scale(1.08);
+    }
+
+    /* Click Effect */
+    .messenger-btn:active {
+      transform: scale(0.95);
+    }
+    /* =========================
+   RESET
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, Helvetica, sans-serif;
+    background:#ffffff;
+    color:#555;
+}
+
+
+/* =========================
+   MAIN ACCOUNT SECTION
+========================= */
+
+.account-section{
+    width:1100px;
+    max-width:calc(100% - 40px);
+    margin:0 auto;
+    padding:35px 0 80px;
+}
+
+
+/* =========================
+   PAGE TITLE
+========================= */
+
+.page-title{
+    font-size:38px;
+    font-weight:500;
+    color:#4b4b4b;
+    margin-bottom:12px;
+}
+
+
+/* =========================
+   TWO COLUMNS
+========================= */
+
+.account-columns{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:40px;
+}
+
+.account-column{
+    min-width:0;
+}
+
+
+/* =========================
+   COLUMN TITLE
+========================= */
+
+.account-column h2{
+    font-size:29px;
+    font-weight:600;
+    color:#4b4b4b;
+    margin-bottom:34px;
+}
+
+
+/* =========================
+   FORM BOX
+========================= */
+
+.form-box{
+    border:1px solid #d8cfdf;
+    border-radius:6px;
+    padding:38px 29px 45px;
+    min-height:380px;
+    background:#fff;
+}
+
+
+/* =========================
+   FORM GROUP
+========================= */
+
+.form-group{
+    margin-bottom:25px;
+}
+
+.form-group label{
+    display:block;
+    font-size:20px;
+    color:#666;
+    margin-bottom:9px;
+}
+
+.required{
+    color:#d90000;
+    font-weight:bold;
+}
+
+
+/* =========================
+   INPUT
+========================= */
+
+.input-wrapper{
+    position:relative;
+}
+
+.form-input{
+    width:100%;
+    height:45px;
+
+    border:1px solid #5d4b4b;
+    border-radius:5px;
+
+    background:#fff;
+
+    padding:0 14px;
+
+    font-size:17px;
+    color:#333;
+
+    outline:none;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease;
+}
+
+.form-input:focus{
+    border-color:#ff6269;
+    box-shadow:0 0 0 2px rgba(255,98,105,.10);
+}
+
+
+/* Password input */
+
+.password-input{
+    padding-right:48px;
+}
+
+
+/* =========================
+   EYE ICON
+========================= */
+
+.password-toggle{
+    position:absolute;
+
+    right:14px;
+    top:50%;
+
+    transform:translateY(-50%);
+
+    border:none;
+    background:transparent;
+
+    color:#111;
+
+    font-size:19px;
+
+    cursor:pointer;
+
+    padding:4px;
+}
+
+.password-toggle:hover{
+    color:#ff5d64;
+}
+
+
+/* =========================
+   BUTTON ROW
+========================= */
+
+.login-options{
+    display:flex;
+    align-items:center;
+    gap:22px;
+    margin-top:-2px;
+    margin-bottom:18px;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+.account-btn{
+    border:0;
+
+    background:#e9e7ed;
+    color:#4e4e4e;
+
+    padding:13px 23px;
+
+    font-size:18px;
+    font-weight:700;
+
+    border-radius:4px;
+
+    cursor:pointer;
+
+    transition:
+        background .2s ease,
+        transform .2s ease;
+}
+
+.account-btn:hover{
+    background:#ff6269;
+    color:#fff;
+    transform:translateY(-1px);
+}
+
+
+/* =========================
+   REMEMBER ME
+========================= */
+
+.remember{
+    display:flex;
+    align-items:center;
+    gap:7px;
+
+    font-size:18px;
+    color:#666;
+
+    cursor:pointer;
+}
+
+.remember input{
+    width:16px;
+    height:16px;
+    cursor:pointer;
+}
+
+
+/* =========================
+   LOST PASSWORD
+========================= */
+
+.lost-password{
+    display:inline-block;
+
+    color:#ff4e55;
+    text-decoration:none;
+
+    font-size:19px;
+
+    transition:.2s;
+}
+
+.lost-password:hover{
+    color:#d92830;
+    text-decoration:underline;
+}
+
+
+/* =========================
+   REGISTER BUTTON
+========================= */
+
+.register-btn{
+    margin-top:-2px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:800px){
+
+    .account-section{
+        padding-top:25px;
+    }
+
+    .account-columns{
+        grid-template-columns:1fr;
+        gap:35px;
+    }
+
+    .page-title{
+        font-size:32px;
+    }
+
+    .account-column h2{
+        font-size:26px;
+        margin-bottom:22px;
+    }
+
+    .form-box{
+        padding:30px 24px 35px;
+    }
+}
+
+
+@media(max-width:480px){
+
+    .account-section{
+        max-width:calc(100% - 25px);
+    }
+
+    .page-title{
+        font-size:29px;
+    }
+
+    .form-box{
+        padding:25px 18px 30px;
+    }
+
+    .form-group label{
+        font-size:17px;
+    }
+
+    .login-options{
+        gap:12px;
+        flex-wrap:wrap;
+    }
+
+    .remember{
+        font-size:16px;
+    }
+}
+/* =========================
+   FOOTER
+========================= */
+
+.footer{
+    background:#10101d;
+    color:#9995ad;
+    padding:70px 0 0;
+}
+
+
+/* =========================
+   FOOTER CONTAINER
+========================= */
+
+.footer-container{
+    width:1100px;
+    max-width:calc(100% - 40px);
+    margin:0 auto;
+
+    display:grid;
+    grid-template-columns:1.15fr 1.2fr 1fr;
+    gap:55px;
+}
+
+
+/* =========================
+   COLUMN
+========================= */
+
+.footer-column h3{
+    color:#ffffff;
+    font-size:23px;
+    font-weight:500;
+    margin-bottom:32px;
+}
+
+.footer-column p{
+    color:#9692a9;
+    font-size:18px;
+    line-height:1.55;
+}
+
+
+/* =========================
+   ABOUT
+========================= */
+
+.about-text{
+    max-width:455px;
+}
+
+
+/* =========================
+   SOCIAL ICONS
+========================= */
+
+.social-links{
+    display:flex;
+    gap:12px;
+    margin-top:22px;
+}
+
+.social-links a{
+    width:42px;
+    height:42px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#292839;
+    color:#9995ad;
+
+    text-decoration:none;
+
+    font-size:18px;
+
+    transition:.25s ease;
+}
+
+.social-links a:hover{
+    background:#ff5d64;
+    color:#fff;
+    transform:translateY(-2px);
+}
+
+
+/* =========================
+   CONTACT
+========================= */
+
+.contact-item{
+    display:flex;
+    align-items:flex-start;
+    gap:25px;
+
+    margin-bottom:24px;
+}
+
+.contact-item i{
+    width:44px;
+    min-width:44px;
+
+    color:#aaa5bd;
+    font-size:25px;
+
+    text-align:center;
+    margin-top:2px;
+}
+
+.contact-item span{
+    color:#9995ad;
+    font-size:18px;
+    line-height:1.55;
+}
+
+
+/* =========================
+   SERVICE FEATURES
+========================= */
+
+.service-item{
+    display:flex;
+    align-items:flex-start;
+    gap:24px;
+
+    margin-bottom:30px;
+}
+
+.service-item i{
+    width:44px;
+    min-width:44px;
+
+    color:#aaa5bd;
+    font-size:25px;
+
+    text-align:center;
+    margin-top:1px;
+}
+
+.service-content h4{
+    color:#fff;
+    font-size:20px;
+    font-weight:500;
+
+    margin-bottom:7px;
+}
+
+.service-content p{
+    font-size:17px;
+    line-height:1.5;
+}
+
+
+/* =========================
+   BOTTOM FOOTER
+========================= */
+
+.footer-bottom{
+    width:1100px;
+    max-width:calc(100% - 40px);
+
+    margin:55px auto 0;
+
+    padding:35px 0 70px;
+
+    border-top:1px solid rgba(255,255,255,.10);
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.footer-bottom p{
+    color:#9995ad;
+    font-size:18px;
+}
+
+.footer-bottom a{
+    color:#9995ad;
+    text-decoration:none;
+    transition:.2s;
+}
+
+.footer-bottom a:hover{
+    color:#ff5d64;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:900px){
+
+    .footer-container{
+        grid-template-columns:1fr 1fr;
+        gap:45px;
+    }
+
+    .footer-column:first-child{
+        grid-column:1 / -1;
+    }
+
+    .footer-bottom{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:18px;
+    }
+}
+
+
+@media(max-width:600px){
+
+    .footer{
+        padding-top:50px;
+    }
+
+    .footer-container{
+        grid-template-columns:1fr;
+        gap:45px;
+    }
+
+    .footer-column:first-child{
+        grid-column:auto;
+    }
+
+    .footer-column h3{
+        font-size:21px;
+        margin-bottom:22px;
+    }
+
+    .footer-column p,
+    .contact-item span{
+        font-size:16px;
+    }
+
+    .service-content h4{
+        font-size:19px;
+    }
+
+    .footer-bottom{
+        margin-top:35px;
+        padding:28px 0 45px;
+    }
+
+    .footer-bottom p{
+        font-size:15px;
+    }
+}
+
+
+/* =========================
+   SEARCH PANEL
+========================= */
+
+.search-panel{
+    position:fixed;
+    top:60px;
+    right:0;
+    width:620px;
+    min-height:58px;
+    display:flex;
+    align-items:center;
+    gap:0;
+    background:#fff;
+    border:1px solid #e7e7e7;
+    box-shadow:0 12px 30px rgba(0,0,0,.16);
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-12px);
+    transition:opacity .25s ease, transform .25s ease, visibility .25s ease;
+    z-index:9998;
+    overflow:hidden;
+}
+
+.search-panel.show{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+}
+
+.search-input-wrap{
+    flex:1;
+    min-width:0;
+}
+
+.search-input{
+    width:100%;
+    height:58px;
+    border:0;
+    outline:0;
+    padding:0 18px;
+    font-size:16px;
+    color:#222;
+    background:#fff;
+}
+
+.search-input::placeholder{
+    color:#999;
+}
+
+.search-category{
+    width:165px;
+    height:58px;
+    border:0;
+    border-left:1px solid #eee;
+    border-right:1px solid #eee;
+    outline:0;
+    padding:0 12px;
+    background:#fff;
+    color:#444;
+    font-size:14px;
+    cursor:pointer;
+}
+
+.search-submit{
+    width:58px;
+    height:58px;
+    border:0;
+    background:#343342;
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    font-size:17px;
+    transition:.2s;
+}
+
+.search-submit:hover{
+    background:#ff5d64;
+}
+
+.search-close{
+    width:58px;
+    height:58px;
+    border:0;
+    background:#343342;
+    color:#fff;
+    cursor:pointer;
+}
+
+@media(max-width:850px){
+    .search-panel{
+        position:fixed;
+        top:60px;
+        left:10px;
+        right:10px;
+        width:auto;
+        height:58px;
+        min-height:58px;
+    }
+
+    .search-category{
+        width:170px;
+        font-size:14px;
+    }
+
+    .search-input{
+        font-size:15px;
+    }
+
+    .search-submit{
+        width:50px;
+    }
+}
+
+@media(max-width:560px){
+    .search-panel{
+        flex-wrap:wrap;
+        height:auto;
+    }
+
+    .search-input-wrap{
+        width:100%;
+        flex:0 0 100%;
+    }
+
+    .search-input{
+        height:52px;
+    }
+
+    .search-category{
+        flex:1;
+        width:auto;
+        height:50px;
+    }
+
+    .search-submit{
+        width:52px;
+        height:50px;
+    }
+}
+
+@media(max-width:850px){
+
+    .search-panel{
+        position:fixed;
+        top:60px;
+        left:10px;
+        right:10px;
+        width:auto;
+        height:58px;
+    }
+
+    .search-category{
+        width:170px;
+        font-size:14px;
+    }
+
+    .search-input{
+        font-size:15px;
+    }
+
+    .search-submit{
+        width:50px;
+    }
+
+    .search-close{
+        width:50px;
+        height:58px;
+    }
+</style>
+</head>
+
+<body>
+
+
+  <!-- Messenger Button -->
+  <a href="#" class="messenger-btn" aria-label="Messenger">
+    <i class="fa-brands fa-facebook-messenger"></i>
+  </a>
+
+<!-- ================= DARK TOP BAR ================= -->
+
+<div class="top-bar">
+
+    <div class="top-container">
+
+        <div class="top-left">
+
+            <div class="top-item">
+                <i class="fa-solid fa-location-dot"></i>
+                <span>Kathmandu, Nepal</span>
+            </div>
+
+            <div class="top-divider"></div>
+
+            <div class="top-item">
+                <i class="fa-solid fa-phone"></i>
+                <span>+977-9851185313</span>
+            </div>
+
+            <div class="top-divider"></div>
+
+            <div class="top-item">
+                <i class="fa-regular fa-envelope"></i>
+                <span>sales@clothesnepal.com</span>
+            </div>
+
+        </div>
+
+
+        <div class="top-right">
+
+            <div class="social-icons">
+
+                <a href="#">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+
+                <a href="#">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+
+            </div>
+
+
+            <div class="top-divider"></div>
+
+
+            <a href="Registor.html"
+               class="top-item"
+               style="color:white;text-decoration:none">
+
+                <i class="fa-regular fa-user"></i>
+
+                <span>Login / Register</span>
+
+            </a>
+
+
+            <div class="top-divider"></div>
+
+
+            <a href="shop.html" class="cart">
+                <i class="fa-solid fa-cart-shopping"></i>
+                
+            </a>
+
+            <button type="button" class="search search-toggle" id="searchToggle" aria-label="Open search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ================= SEARCH PANEL ================= -->
+<div class="search-panel" id="searchPanel">
+
+    <div class="search-input-wrap">
+        <input
+            type="text"
+            class="search-input"
+            id="searchInput"
+            placeholder="Search Products ..."
+            autocomplete="off">
+    </div>
+
+    <select class="search-category" id="searchCategory">
+        <option value="">Select Category</option>
+        <option value="dress">Dress</option>
+        <option value="bags">Bags</option>
+        <option value="jackets">Jackets</option>
+        <option value="pants">Pants</option>
+        <option value="shoes">Shoes</option>
+        <option value="swimsuit">Swimsuit</option>
+        <option value="baby">Baby City</option>
+        <option value="underthings">Underthings</option>
+    </select>
+
+    <button type="button" class="search-submit" id="searchSubmit" aria-label="Search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+
+    
+
+</div>
+
+<!-- ================= WHITE NAVIGATION BAR ================= -->
+
+<nav class="navbar">
+
+    <div class="nav-container">
+
+
+        <!-- LOGO -->
+
+        <div class="logo">
+
+            <a href="Home.html">
+
+                <img
+                    src="Galaxy Store.png"
+                    alt="Galaxy Store">
+
+            </a>
+
+        </div>
+
+
+
+        <!-- NAVIGATION MENU -->
+
+        <div class="nav-menu">
+
+
+            <a href="dress.html">
+                DRESS
+            </a>
+
+
+            <a href="bags.html">
+                BAGS
+            </a>
+
+
+            <a href="jackets.html">
+                JACKETS
+            </a>
+
+
+            <a href="pants.html">
+                PANTS
+            </a>
+
+
+            <a href="Spin.html">
+                Discount Spin
+            </a>
+
+
+            <a href="Review.html">
+                REVIEWS
+            </a>
+
+
+
+            <!-- BABY CITY -->
+
+            <div class="dropdown-wrap">
+
+                <button
+                    class="drop-btn"
+                    type="button">
+
+                    BABY CITY
+
+                    <i class="fa-solid fa-chevron-down"></i>
+
+                </button>
+
+
+                <div class="dropdown-menu">
+
+                    <a href="baby-dresses.html">
+                        Baby Dresses
+                    </a>
+
+                    <a href="baby-shoes.html">
+                        Baby Shoes
+                    </a>
+
+                    <a href="baby-accessories.html">
+                        Baby Accessories
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- UNDERTHINGS -->
+
+            <div class="dropdown-wrap">
+
+                <button
+                    class="drop-btn"
+                    type="button">
+
+                    UNDERTHINGS
+
+                    <i class="fa-solid fa-chevron-down"></i>
+
+                </button>
+
+
+                <div class="dropdown-menu">
+
+                    <a href="bras.html">
+                        Bras
+                    </a>
+
+                    <a href="panties.html">
+                        Panties
+                    </a>
+
+                    <a href="innerwear.html">
+                         Innerwear
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- SHOP -->
+
+            <div class="dropdown-wrap">
+
+                <button
+                    class="drop-btn"
+                    type="button">
+
+                    SHOP
+
+                    <i class="fa-solid fa-chevron-down"></i>
+
+                </button>
+
+
+                <div class="dropdown-menu">
+
+                    <a href="new-arrivals.html">
+                        New Arrivals
+                    </a>
+
+                    <a href="best-sellers.html">
+                        Best Sellers
+                    </a>
+
+                    <a href="sale.html">
+                        Sale
+                    </a>
+
+                    <a href="all-products.html">
+                        All Products
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</nav>
+
+<section class="account-section">
+
+    <!-- PAGE TITLE -->
+    <h1 class="page-title">
+        My Account
+    </h1>
+
+
+    <div class="account-columns">
+
+
+        <!-- ================= LOGIN ================= -->
+
+        <div class="account-column">
+
+            <h2>
+                Login
+            </h2>
+
+
+            <div class="form-box">
+
+                <!-- Username -->
+                <div class="form-group">
+
+                    <label>
+                        Username or email address
+                        <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-input"
+                        placeholder="Enter your username or email">
+
+                </div>
+
+
+                <!-- Password -->
+                <div class="form-group">
+
+                    <label>
+                        Password
+                        <span class="required">*</span>
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <input
+                            type="password"
+                            class="form-input password-input"
+                            id="loginPassword"
+                            placeholder="Enter your password">
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            onclick="togglePassword('loginPassword', this)"
+                            aria-label="Show password">
+
+                            <i class="fa-regular fa-eye-slash"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Login -->
+                <div class="login-options">
+
+                    <button
+                        type="button"
+                        class="account-btn">
+
+                        LOG IN
+
+                    </button>
+
+
+                    <label class="remember">
+
+                        <input
+                            type="checkbox">
+
+                        <span>
+                            Remember me
+                        </span>
+
+                    </label>
+
+                </div>
+
+
+                <!-- Lost Password -->
+
+                <a
+                    href="#"
+                    class="lost-password">
+
+                    Lost your password?
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================= REGISTER ================= -->
+
+        <div class="account-column">
+
+            <h2>
+                Register
+            </h2>
+
+
+            <div class="form-box">
+
+                <!-- Username -->
+
+                <div class="form-group">
+
+                    <label>
+                        Username
+                        <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        class="form-input"
+                        placeholder="Create a username">
+
+                </div>
+
+
+                <!-- Email -->
+
+                <div class="form-group">
+
+                    <label>
+                        Email address
+                        <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="email"
+                        class="form-input"
+                        placeholder="Enter your email">
+
+                </div>
+
+
+                <!-- Password -->
+
+                <div class="form-group">
+
+                    <label>
+                        Password
+                        <span class="required">*</span>
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+                        <input
+                            type="password"
+                            class="form-input password-input"
+                            id="registerPassword"
+                            placeholder="Create a password">
+
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            onclick="togglePassword('registerPassword', this)"
+                            aria-label="Show password">
+
+                            <i class="fa-regular fa-eye-slash"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Register Button -->
+
+                <button
+                    type="button"
+                    class="account-btn register-btn">
+
+                    REGISTER
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- ==================================================
+     GALAXY STORE FOOTER
+================================================== -->
+
+<footer class="footer">
+
+
+    <div class="footer-container">
+
+
+        <!-- ================= ABOUT ================= -->
+
+        <div class="footer-column">
+
+            <h3>
+                About Galaxy Store
+            </h3>
+
+            <p class="about-text">
+                Galaxy Store is an exclusive online clothing
+                store bringing you national and international
+                fashion clothing, bags, shoes and many more
+                products that will be a trendsetter in the
+                fashion community.
+            </p>
+
+
+            <!-- Social Media -->
+
+            <div class="social-links">
+
+                <a href="#" aria-label="Facebook">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+
+                <a href="#" aria-label="Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================= CONTACT ================= -->
+
+        <div class="footer-column">
+
+            <h3>
+                Contact Us
+            </h3>
+
+
+            <!-- Address -->
+
+            <div class="contact-item">
+
+                <i class="fa-regular fa-map"></i>
+
+                <span>
+                    Shantinagar, New Baneshwor,<br>
+                    Kathmandu, Nepal
+                </span>
+
+            </div>
+
+
+            <!-- Email -->
+
+            <div class="contact-item">
+
+                <i class="fa-regular fa-envelope"></i>
+
+                <span>
+                    sales@galaxystore.com
+                </span>
+
+            </div>
+
+
+            <!-- Phone -->
+
+            <div class="contact-item">
+
+                <i class="fa-solid fa-mobile-screen-button"></i>
+
+                <span>
+                    +977-9851185313,<br>
+                    +977-9803053945
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ================= SERVICES ================= -->
+
+        <div class="footer-column">
+
+
+            <!-- Free Delivery -->
+
+            <div class="service-item">
+
+                <i class="fa-solid fa-truck"></i>
+
+                <div class="service-content">
+
+                    <h4>
+                        Free Delivery
+                    </h4>
+
+                    <p>
+                        Free Delivery all Over Nepal
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Money Return -->
+
+            <div class="service-item">
+
+                <i class="fa-solid fa-wallet"></i>
+
+                <div class="service-content">
+
+                    <h4>
+                        Money Return
+                    </h4>
+
+                    <p>
+                        100% money back guarantee if
+                        defective or damaged
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Opening Hours -->
+
+            <div class="service-item">
+
+                <i class="fa-regular fa-comments"></i>
+
+                <div class="service-content">
+
+                    <h4>
+                        Opening Hours
+                    </h4>
+
+                    <p>
+                        10am to 6pm Opening hours
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================= BOTTOM ================= -->
+
+    <div class="footer-bottom">
+
+        <p>
+            Copyright © 2026. Galaxy Store All rights reserved.
+        </p>
+
+        <p>
+            Maintained by :
+            <a href="#">
+                Galaxy Web
+            </a>
+        </p>
+
+    </div>
+
+</footer>
+
+
+
+<script>
+
+/* =========================
+   PASSWORD SHOW / HIDE
+========================= */
+
+function togglePassword(inputId, button){
+
+    const input = document.getElementById(inputId);
+    const icon = button.querySelector("i");
+
+
+    if(input.type === "password"){
+
+        input.type = "text";
+
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+
+        button.setAttribute(
+            "aria-label",
+            "Hide password"
+        );
+
+    }else{
+
+        input.type = "password";
+
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+
+        button.setAttribute(
+            "aria-label",
+            "Show password"
+        );
+
+    }
+
+}
+</script>
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+const dropdowns =
+document.querySelectorAll(".dropdown-wrap");
+
+
+dropdowns.forEach(dropdown => {
+
+    const button =
+    dropdown.querySelector(".drop-btn");
+
+
+    button.addEventListener("click", function(event){
+
+        event.stopPropagation();
+
+
+        dropdowns.forEach(other => {
+
+            if(other !== dropdown){
+
+                other.classList.remove("open");
+
+            }
+
+        });
+
+
+        dropdown.classList.toggle("open");
+
+    });
+
+});
+
+
+/* Close dropdown when clicking outside */
+
+document.addEventListener("click", function(){
+
+    dropdowns.forEach(dropdown => {
+
+        dropdown.classList.remove("open");
+
+    });
+
+});
+
+
+
+
+</script>
+<script>
+/* ================= SEARCH PANEL ================= */
+
+const searchToggle = document.getElementById("searchToggle");
+const searchPanel = document.getElementById("searchPanel");
+const searchInput = document.getElementById("searchInput");
+const searchCategory = document.getElementById("searchCategory");
+const searchSubmit = document.getElementById("searchSubmit");
+
+function openSearch(){
+    searchPanel.classList.add("show");
+    searchToggle.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+    searchToggle.setAttribute("aria-label", "Close search");
+    setTimeout(() => searchInput.focus(), 100);
+}
+
+function closeSearch(){
+    searchPanel.classList.remove("show");
+    searchToggle.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i>';
+    searchToggle.setAttribute("aria-label", "Open search");
+}
+
+searchToggle.addEventListener("click", function(event){
+    event.stopPropagation();
+
+    if(searchPanel.classList.contains("show")){
+        closeSearch();
+    }else{
+        openSearch();
+    }
+});
+
+searchPanel.addEventListener("click", function(event){
+    event.stopPropagation();
+});
+
+function performSearch(){
+    const query = searchInput.value.trim();
+    const category = searchCategory.value;
+
+    if(!query && !category){
+        searchInput.focus();
+        searchInput.setCustomValidity("Please enter a product or select a category.");
+        searchInput.reportValidity();
+        setTimeout(() => searchInput.setCustomValidity(""), 2000);
+        return;
+    }
+
+    const params = new URLSearchParams();
+
+    if(query){
+        params.set("search", query);
+    }
+
+    if(category){
+        params.set("category", category);
+    }
+
+    window.location.href = "shop.html?" + params.toString();
+}
+
+searchSubmit.addEventListener("click", performSearch);
+
+searchInput.addEventListener("keydown", function(event){
+    if(event.key === "Enter"){
+        event.preventDefault();
+        performSearch();
+    }
+
+    if(event.key === "Escape"){
+        closeSearch();
+    }
+});
+
+document.addEventListener("click", function(){
+    dropdowns.forEach(dropdown => {
+        dropdown.classList.remove("open");
+    });
+
+    if(searchPanel.classList.contains("show")){
+        closeSearch();
+    }
+});
+</script>
+</body>
+</html>

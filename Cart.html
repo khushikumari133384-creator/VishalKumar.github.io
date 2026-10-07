@@ -1,0 +1,2137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galaxy Store - Cart</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#f8f9fc;
+    color:#171717;
+}
+
+/* ================= HEADER ================= */
+
+.header{
+    height:82px;
+    background:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 6%;
+    border-bottom:1px solid #eee;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.logo{
+    height:55px;
+    width:auto;
+    object-fit:contain;
+}
+
+.nav{
+    display:flex;
+    align-items:center;
+    gap:30px;
+}
+
+.nav a{
+    text-decoration:none;
+    color:#222;
+    font-size:14px;
+    font-weight:500;
+    transition:.3s;
+}
+
+.nav a:hover{
+    color:#ff4f6d;
+}
+
+.cart-icon{
+    position:relative;
+    width:45px;
+    height:45px;
+    border:1px solid #eee;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.cart-icon:hover{
+    background:#ff4f6d;
+    color:white;
+}
+
+.cart-icon i{
+    font-size:19px;
+}
+
+.cart-count{
+    position:absolute;
+    top:-5px;
+    right:-3px;
+    width:20px;
+    height:20px;
+    background:#ff4f6d;
+    color:#fff;
+    border-radius:50%;
+    font-size:11px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* ================= PAGE ================= */
+
+.page{
+    width:90%;
+    max-width:1250px;
+    margin:45px auto;
+}
+
+.breadcrumb{
+    color:#999;
+    font-size:13px;
+    margin-bottom:15px;
+}
+
+.breadcrumb span{
+    color:#ff4f6d;
+}
+
+.title{
+    font-size:35px;
+    font-weight:500;
+    margin-bottom:30px;
+}
+
+/* ================= CART ================= */
+
+.cart-layout{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:30px;
+}
+
+.cart-box{
+    background:white;
+    border-radius:15px;
+    padding:25px;
+    box-shadow:0 10px 35px rgba(0,0,0,.06);
+}
+
+.cart-header{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr 1fr;
+    padding:0 10px 18px;
+    border-bottom:1px solid #eee;
+    color:#888;
+    font-size:13px;
+}
+
+.cart-item{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr 1fr;
+    align-items:center;
+    padding:20px 10px;
+    border-bottom:1px solid #eee;
+}
+
+.product{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.product img{
+    width:95px;
+    height:110px;
+    object-fit:contain;
+    background:#f7f7f7;
+    border-radius:10px;
+}
+
+.product-info h3{
+    font-size:15px;
+    font-weight:500;
+    margin-bottom:6px;
+}
+
+.product-info p{
+    font-size:12px;
+    color:#999;
+}
+
+.price{
+    font-size:14px;
+    color:#555;
+}
+
+.subtotal{
+    font-weight:600;
+}
+
+.remove{
+    width:34px;
+    height:34px;
+    border:1px solid #eee;
+    border-radius:50%;
+    background:white;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.remove:hover{
+    background:#ff4f6d;
+    color:white;
+}
+
+/* ================= QUANTITY ================= */
+
+.quantity{
+    display:flex;
+    align-items:center;
+}
+
+.quantity button{
+    width:32px;
+    height:32px;
+    border:1px solid #ddd;
+    background:white;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.quantity span{
+    width:38px;
+    height:32px;
+    border-top:1px solid #ddd;
+    border-bottom:1px solid #ddd;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:13px;
+}
+
+/* ================= SUMMARY ================= */
+
+.summary{
+    background:#fff;
+    padding:28px;
+    border-radius:15px;
+    box-shadow:0 10px 35px rgba(0,0,0,.06);
+    height:max-content;
+}
+
+.summary h2{
+    font-size:22px;
+    font-weight:500;
+    margin-bottom:25px;
+}
+
+.summary-row{
+    display:flex;
+    justify-content:space-between;
+    padding:12px 0;
+    font-size:14px;
+    color:#666;
+}
+
+.summary-total{
+    border-top:1px solid #eee;
+    margin-top:10px;
+    padding-top:20px;
+    display:flex;
+    justify-content:space-between;
+    font-size:19px;
+    font-weight:600;
+}
+
+.checkout{
+    width:100%;
+    margin-top:25px;
+    height:52px;
+    border:0;
+    background:#171717;
+    color:#fff;
+    font-family:inherit;
+    font-size:13px;
+    letter-spacing:2px;
+    cursor:pointer;
+    border-radius:5px;
+    transition:.3s;
+}
+
+.checkout:hover{
+    background:#ff4f6d;
+}
+
+.continue{
+    display:block;
+    text-align:center;
+    margin-top:18px;
+    color:#777;
+    text-decoration:none;
+    font-size:13px;
+}
+
+.continue:hover{
+    color:#ff4f6d;
+}
+
+/* ================= EMPTY CART ================= */
+
+.empty{
+    text-align:center;
+    padding:80px 20px;
+}
+
+.empty-icon{
+    font-size:65px;
+    color:#ddd;
+    margin-bottom:20px;
+}
+
+.empty h2{
+    font-size:25px;
+    font-weight:500;
+    margin-bottom:10px;
+}
+
+.empty p{
+    color:#999;
+    font-size:14px;
+    margin-bottom:25px;
+}
+
+.shop-btn{
+    display:inline-block;
+    background:#171717;
+    color:white;
+    padding:14px 30px;
+    text-decoration:none;
+    font-size:13px;
+    letter-spacing:1px;
+    border-radius:4px;
+}
+
+.shop-btn:hover{
+    background:#ff4f6d;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+    margin-top:80px;
+    background:#10101c;
+    color:white;
+    padding:55px 7%;
+}
+
+.footer-grid{
+    max-width:1250px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr 1fr;
+    gap:45px;
+}
+
+footer h3{
+    font-size:18px;
+    margin-bottom:20px;
+}
+
+footer p,
+footer a{
+    color:#aaa;
+    font-size:13px;
+    line-height:2;
+    text-decoration:none;
+}
+
+footer a:hover{
+    color:#ff617a;
+}
+
+.copyright{
+    text-align:center;
+    border-top:1px solid #282838;
+    margin-top:40px;
+    padding-top:25px;
+    color:#777;
+    font-size:12px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:900px){
+
+    .nav a{
+        display:none;
+    }
+
+    .cart-layout{
+        grid-template-columns:1fr;
+    }
+
+    .cart-header{
+        display:none;
+    }
+
+    .cart-item{
+        grid-template-columns:1fr;
+        gap:15px;
+    }
+
+    .product{
+        justify-content:flex-start;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+@media(max-width:550px){
+
+    .header{
+        padding:0 20px;
+    }
+
+    .logo{
+        max-width:170px;
+    }
+
+    .page{
+        width:94%;
+        margin-top:30px;
+    }
+
+    .title{
+        font-size:28px;
+    }
+
+    .cart-box,
+    .summary{
+        padding:17px;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr;
+    }
+}
+/* Messenger Button */
+    .messenger-btn {
+      position: fixed;
+      right: 25px;
+      bottom: 25px;
+
+      width: 62px;
+      height: 62px;
+
+      border-radius: 50%;
+      background: #ed1971;
+      color: white;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 36px;
+      text-decoration: none;
+
+      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.25);
+
+      cursor: pointer;
+      z-index: 9999;
+
+      transition: 
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        background 0.3s ease;
+    }
+
+    /* Hover Effect */
+    .messenger-btn:hover {
+      transform: scale(1.12) translateY(-4px);
+      background: #d91465;
+      box-shadow: 0 10px 25px rgba(237, 25, 113, 0.45);
+    }
+
+    /* Icon */
+    .messenger-btn i {
+      transition: transform 0.3s ease;
+    }
+
+    .messenger-btn:hover i {
+      transform: rotate(-8deg) scale(1.08);
+    }
+
+    /* Click Effect */
+    .messenger-btn:active {
+      transform: scale(0.95);
+    }
+    
+/* =========================
+   DARK TOP BAR
+========================= */
+
+.top-bar{
+    height:60px;
+    background:#10101d;
+    color:#fff;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.top-container{
+    width:1100px;
+    max-width:calc(100% - 40px);
+    height:100%;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.top-left,
+.top-right{
+    height:100%;
+
+    display:flex;
+    align-items:center;
+}
+
+
+/* TOP ITEMS */
+
+.top-item{
+    height:100%;
+    padding:0 22px;
+
+    display:flex;
+    align-items:center;
+    gap:13px;
+
+    white-space:nowrap;
+
+    font-size:15px;
+}
+
+.top-item i{
+    color:#fff;
+    font-size:16px;
+}
+
+
+/* DIVIDER */
+
+.top-divider{
+    width:1px;
+    height:58%;
+
+    background:rgba(255,255,255,.13);
+}
+
+
+/* SOCIAL ICONS */
+
+.social-icons{
+    display:flex;
+    align-items:center;
+
+    gap:19px;
+    padding:0 24px;
+}
+
+.social-icons a{
+    color:#fff;
+    font-size:16px;
+
+    transition:.2s;
+}
+
+.social-icons a:hover{
+    color:#ff5d64;
+}
+
+
+/* =========================
+   CART
+========================= */
+
+.cart{
+    width:58px;
+    height:60px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    position:relative;
+
+    color:#fff;
+    text-decoration:none;
+}
+
+.cart i{
+    font-size:17px;
+}
+
+
+/* =========================
+   SEARCH BUTTON
+========================= */
+
+.search{
+    width:58px;
+    height:60px;
+
+    background:#343342;
+    color:#fff;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:18px;
+
+    transition:.2s;
+
+    text-decoration:none;
+
+    border:0;
+    cursor:pointer;
+    padding:0;
+
+    font-family:inherit;
+}
+
+.search:hover{
+    background:#414152;
+}
+
+
+/* =========================
+   SEARCH PANEL
+========================= */
+
+.search-panel{
+    position:absolute;
+
+    top:60px;
+
+    right:max(
+        0px,
+        calc((100vw - 1100px) / 2)
+    );
+
+    width:775px;
+    height:68px;
+
+    background:#fff;
+
+    display:flex;
+    align-items:stretch;
+
+    z-index:2000;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,.08);
+
+    opacity:0;
+    visibility:hidden;
+
+    transform:translateY(-8px);
+
+    transition:
+        opacity .2s ease,
+        transform .2s ease,
+        visibility .2s ease;
+}
+
+
+/* SEARCH OPEN */
+
+.search-panel.show{
+    opacity:1;
+    visibility:visible;
+
+    transform:translateY(0);
+}
+
+
+/* INPUT */
+
+.search-input-wrap{
+    flex:1;
+
+    display:flex;
+    align-items:center;
+
+    background:#f2f2f2;
+
+    border-right:1px solid #ddd;
+}
+
+.search-input{
+    width:100%;
+    height:100%;
+
+    border:0;
+    outline:0;
+
+    background:#f2f2f2;
+
+    padding:0 14px;
+
+    font-size:18px;
+    color:#555;
+}
+
+.search-input::placeholder{
+    color:#888;
+}
+
+
+/* CATEGORY */
+
+.search-category{
+    width:225px;
+    height:100%;
+
+    border:0;
+    outline:0;
+
+    background:#f2f2f2;
+
+    padding:0 18px;
+
+    font-size:17px;
+    color:#666;
+
+    cursor:pointer;
+
+    border-right:1px solid #ddd;
+}
+
+
+/* SEARCH SUBMIT */
+
+.search-submit{
+    width:58px;
+    height:100%;
+
+    border:0;
+
+    background:#ff5d64;
+    color:#fff;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:20px;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.search-submit:hover{
+    background:#f04e56;
+}
+
+
+/* =========================
+   WHITE NAVBAR
+========================= */
+
+.navbar{
+    height:123px;
+
+    background:#fff;
+
+    border-bottom:1px solid #eeeeee;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.nav-container{
+    width:1100px;
+    max-width:calc(100% - 40px);
+    height:100%;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+
+/* =========================
+   LOGO
+========================= */
+
+.logo{
+    width:300px;
+    height:100%;
+
+    display:flex;
+    align-items:center;
+}
+
+.logo img{
+    width:260px;
+    max-height:150px;
+
+    object-fit:contain;
+
+    display:block;
+}
+
+
+/* =========================
+   NAVIGATION MENU
+========================= */
+
+.nav-menu{
+    height:100%;
+
+    display:flex;
+    align-items:center;
+
+    gap:37px;
+}
+
+.nav-menu > a,
+.dropdown-wrap > .drop-btn{
+
+    height:100%;
+
+    display:flex;
+    align-items:center;
+
+    color:#171724;
+
+    text-decoration:none;
+
+    font-size:16px;
+    font-weight:700;
+
+    white-space:nowrap;
+
+    transition:.2s;
+}
+
+.nav-menu > a:hover,
+.dropdown-wrap > .drop-btn:hover,
+.dropdown-wrap.open > .drop-btn{
+    color:#ff5d64;
+}
+
+
+/* =========================
+   DROPDOWNS
+========================= */
+
+.dropdown-wrap{
+    height:100%;
+
+    position:relative;
+
+    display:flex;
+    align-items:center;
+}
+
+.drop-btn{
+    border:0;
+    background:transparent;
+
+    font-family:inherit;
+
+    cursor:pointer;
+
+    gap:12px;
+
+    padding:0;
+}
+
+.drop-btn i{
+    font-size:11px;
+
+    transition:
+        transform .25s ease;
+}
+
+
+/* ROTATE ARROW */
+
+.dropdown-wrap.open .drop-btn i{
+    transform:rotate(180deg);
+}
+
+
+/* DROPDOWN MENU */
+
+.dropdown-menu{
+    position:absolute;
+
+    top:100%;
+    right:0;
+
+    min-width:190px;
+
+    background:#fff;
+
+    border:1px solid #eeeeee;
+
+    box-shadow:
+        0 10px 28px rgba(0,0,0,.12);
+
+    padding:8px 0;
+
+    opacity:0;
+    visibility:hidden;
+
+    transform:translateY(8px);
+
+    transition:.2s ease;
+
+    z-index:1000;
+}
+
+
+/* DROPDOWN OPEN */
+
+.dropdown-wrap.open .dropdown-menu{
+    opacity:1;
+
+    visibility:visible;
+
+    transform:translateY(0);
+}
+
+
+/* DROPDOWN LINKS */
+
+.dropdown-menu a{
+    display:block;
+
+    padding:13px 18px;
+
+    color:#171724;
+
+    text-decoration:none;
+
+    font-size:14px;
+    font-weight:600;
+
+    transition:.2s;
+}
+
+.dropdown-menu a:hover{
+    background:#f8f8f8;
+    color:#ff5d64;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:1100px){
+
+    .top-item{
+        padding:0 10px;
+        font-size:13px;
+    }
+
+    .nav-menu{
+        gap:21px;
+    }
+
+    .nav-menu > a,
+    .dropdown-wrap > .drop-btn{
+        font-size:14px;
+    }
+
+    .logo{
+        width:200px;
+    }
+
+    .logo img{
+        width:180px;
+    }
+}
+
+
+@media(max-width:850px){
+
+    /* SEARCH */
+
+    .search-panel{
+        position:fixed;
+
+        top:60px;
+
+        left:10px;
+        right:10px;
+
+        width:auto;
+
+        height:58px;
+    }
+
+    .search-category{
+        width:170px;
+        font-size:14px;
+    }
+
+    .search-input{
+        font-size:15px;
+    }
+
+    .search-submit{
+        width:50px;
+    }
+
+
+    /* DARK BAR */
+
+    .top-bar{
+        height:auto;
+        padding:10px 0;
+    }
+
+    .top-container{
+        flex-wrap:wrap;
+
+        justify-content:center;
+
+        gap:5px;
+    }
+
+    .top-left,
+    .top-right{
+        height:auto;
+
+        flex-wrap:wrap;
+
+        justify-content:center;
+    }
+
+    .top-divider{
+        display:none;
+    }
+
+
+    /* WHITE NAV */
+
+    .navbar{
+        height:auto;
+        padding:20px 0;
+    }
+
+    .nav-container{
+        flex-direction:column;
+
+        gap:18px;
+    }
+
+    .logo{
+        width:auto;
+        height:auto;
+    }
+
+    .nav-menu{
+        height:auto;
+
+        flex-wrap:wrap;
+
+        justify-content:center;
+
+        gap:14px 22px;
+    }
+
+    .nav-menu > a,
+    .dropdown-wrap,
+    .dropdown-wrap > .drop-btn{
+        height:35px;
+    }
+
+
+    /* MOBILE DROPDOWN */
+
+    .dropdown-menu{
+        top:35px;
+
+        right:50%;
+
+        transform:
+            translate(50%,8px);
+    }
+
+    .dropdown-wrap.open .dropdown-menu{
+        transform:
+            translate(50%,0);
+    }
+
+}
+</style>
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+<body>
+
+
+<!-- ==================================================
+     DARK TOP NAVBAR
+================================================== -->
+
+<div class="top-bar">
+
+    <div class="top-container">
+
+
+        <!-- LEFT SIDE -->
+
+        <div class="top-left">
+
+
+            <!-- LOCATION -->
+
+            <div class="top-item">
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                <span>
+                    Kathmandu, Nepal
+                </span>
+
+            </div>
+
+
+            <div class="top-divider"></div>
+
+
+            <!-- PHONE -->
+
+            <div class="top-item">
+
+                <i class="fa-solid fa-phone"></i>
+
+                <span>
+                    +977-9851185313
+                </span>
+
+            </div>
+
+
+            <div class="top-divider"></div>
+
+
+            <!-- EMAIL -->
+
+            <div class="top-item">
+
+                <i class="fa-regular fa-envelope"></i>
+
+                <span>
+                    sales@clothesnepal.com
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT SIDE -->
+
+        <div class="top-right">
+
+
+            <!-- SOCIAL ICONS -->
+
+            <div class="social-icons">
+
+                <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-brands fa-facebook-f"></i>
+                </a>
+
+                <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+
+            </div>
+
+
+            <div class="top-divider"></div>
+
+
+            <!-- LOGIN -->
+
+            <a
+                href="Registor.html"
+                class="top-item"
+                style="color:white;text-decoration:none"
+            >
+
+                <i class="fa-regular fa-user"></i>
+
+                <span>
+                    Login / Register
+                </span>
+
+            </a>
+
+
+            <div class="top-divider"></div>
+
+
+            <!-- CART -->
+
+            <a
+                href="Cart.html"
+                class="cart"
+            >
+
+                <i class="fa-solid fa-cart-shopping"></i>
+
+            </a>
+
+
+            <!-- SEARCH BUTTON -->
+
+            <button
+                type="button"
+                class="search search-toggle"
+                id="searchToggle"
+                aria-label="Open search"
+            >
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- ==================================================
+     SEARCH PANEL
+================================================== -->
+
+<div
+    class="search-panel"
+    id="searchPanel"
+>
+
+
+    <!-- SEARCH INPUT -->
+
+    <div class="search-input-wrap">
+
+        <input
+            type="text"
+            class="search-input"
+            id="searchInput"
+            placeholder="Search Products ..."
+            autocomplete="off"
+        >
+
+    </div>
+
+
+    <!-- CATEGORY -->
+
+    <select
+        class="search-category"
+        id="searchCategory"
+    >
+
+        <option value="">
+            Select Category
+        </option>
+
+        <option value="dress">
+            Dress
+        </option>
+
+        <option value="bags">
+            Bags
+        </option>
+
+        <option value="jackets">
+            Jackets
+        </option>
+
+        <option value="pants">
+            Pants
+        </option>
+
+        <option value="shoes">
+            Shoes
+        </option>
+
+        <option value="swimsuit">
+            Swimsuit
+        </option>
+
+        <option value="baby">
+            Baby City
+        </option>
+
+        <option value="underthings">
+            Underthings
+        </option>
+
+    </select>
+
+
+    <!-- SEARCH SUBMIT -->
+
+    <button
+        type="button"
+        class="search-submit"
+        id="searchSubmit"
+        aria-label="Search"
+    >
+
+        <i class="fa-solid fa-magnifying-glass"></i>
+
+    </button>
+
+</div>
+
+
+
+<!-- ==================================================
+     WHITE NAVBAR
+================================================== -->
+
+<nav class="navbar">
+
+    <div class="nav-container">
+
+
+        <!-- LOGO -->
+
+        <div class="logo">
+
+            <a href="Home.html">
+
+                <img
+                    src="Galaxy Store.png"
+                    alt="Galaxy Store"
+                >
+
+            </a>
+
+        </div>
+
+
+        <!-- NAVIGATION -->
+
+        <div class="nav-menu">
+
+
+            <a
+                href="Dress.html"
+                class="active"
+            >
+                DRESS
+            </a>
+
+
+            <a href="bags.html">
+                BAGS
+            </a>
+
+
+            <a href="jackets.html">
+                JACKETS
+            </a>
+
+
+            <a href="pants.html">
+                PANTS
+            </a>
+
+
+            <a href="Spin.html">
+                Discount Spin
+            </a>
+
+
+            <a href="Review.html">
+                REVIEWS
+            </a>
+
+
+
+            <!-- =========================
+                 BABY CITY
+            ========================== -->
+
+            <div class="dropdown-wrap">
+
+                <button
+                    class="drop-btn"
+                    type="button"
+                >
+
+                    BABY CITY
+
+                    <i class="fa-solid fa-chevron-down"></i>
+
+                </button>
+
+
+                <div class="dropdown-menu">
+
+                    <a href="baby-dresses.html">
+                        Baby Dresses
+                    </a>
+
+                    <a href="baby-shoes.html">
+                        Baby Shoes
+                    </a>
+
+                    <a href="baby-accessories.html">
+                        Baby Accessories
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =========================
+                 UNDERTHINGS
+            ========================== -->
+
+            <div class="dropdown-wrap">
+
+                <button
+                    class="drop-btn"
+                    type="button"
+                >
+
+                    UNDERTHINGS
+
+                    <i class="fa-solid fa-chevron-down"></i>
+
+                </button>
+
+
+                <div class="dropdown-menu">
+
+                    <a href="bras.html">
+                        Bras
+                    </a>
+
+                    <a href="panties.html">
+                        Panties
+                    </a>
+
+                    <a href="innerwear.html">
+                        Innerwear
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =========================
+                 SHOP
+            ========================== -->
+
+            <div class="dropdown-wrap">
+
+                <button
+                    class="drop-btn"
+                    type="button"
+                >
+
+                    SHOP
+
+                    <i class="fa-solid fa-chevron-down"></i>
+
+                </button>
+
+
+                <div class="dropdown-menu">
+
+                    <a href="new-arrivals.html">
+                        New Arrivals
+                    </a>
+
+                    <a href="best-sellers.html">
+                        Best Sellers
+                    </a>
+
+                    <a href="sale.html">
+                        Sale
+                    </a>
+
+                    <a href="all-products.html">
+                        All Products
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</nav>
+<body>
+
+  <!-- Messenger Button -->
+  <a href="https://www.messenger.com/login" class="messenger-btn" aria-label="Messenger">
+    <i class="fa-brands fa-facebook-messenger"></i>
+  </a>
+
+</body>
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+    
+        <h1>Galaxy Store</h1>
+    
+
+    <nav class="nav">
+        
+
+        <div class="cart-icon">
+            <i class="fa-solid fa-bag-shopping"></i>
+            <span class="cart-count" id="cartCount">0</span>
+        </div>
+    </nav>
+
+</header>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="page">
+
+    <div class="breadcrumb">
+        Home &nbsp; / &nbsp; <span>Shopping Cart</span>
+    </div>
+
+    <h1 class="title">Shopping Cart</h1>
+
+    <div id="cartContent"></div>
+
+</main>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="footer-grid">
+
+        <div>
+            <h3>Galaxy Store</h3>
+            <p>
+                Discover stylish fashion, beautiful dresses
+                and premium products at Galaxy Store.
+            </p>
+            <p>
+                Your style. Your choice. Your Galaxy.
+            </p>
+        </div>
+
+        <div>
+            <h3>Quick Links</h3>
+            <p><a href="Dress.html">Shop</a></p>
+            <p><a href="Dress.html">Dresses</a></p>
+            <p><a href="New-Arrivals.html">New Arrivals</a></p>
+            <p><a href="Offers.html">Offers</a></p>
+        </div>
+
+        <div>
+            <h3>Customer Care</h3>
+            <p><a href="Contact-Us.html">Contact Us</a></p>
+            <p><a href="Shipping.html">Shipping</a></p>
+            <p><a href="Returns.html">Returns</a></p>
+            <p><a href="Privacy-Policy.html">Privacy Policy</a></p>
+        </div>
+
+        <div>
+            <h3>Follow Us</h3>
+            <p><a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+                <i class="fa-brands fa-facebook"></i> Facebook
+            </a></p>
+            <p><a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
+                <i class="fa-brands fa-instagram"></i> Instagram
+            </a></p>
+            <p><a href="https://www.tiktok.com/" target="_blank" rel="noopener noreferrer">
+                <i class="fa-brands fa-tiktok"></i> TikTok
+            </a></p>
+        </div>
+
+    </div>
+
+    <div class="copyright">
+        © 2026 Galaxy Store. All Rights Reserved.
+    </div>
+
+</footer>
+
+
+<script>
+
+/* =====================================================
+   CART SYSTEM
+===================================================== */
+
+let cart = JSON.parse(localStorage.getItem("galaxyCart")) || [];
+
+
+/* ---------------- FORMAT PRICE ---------------- */
+
+function money(price){
+    return "Rs " + Number(price).toLocaleString("en-IN") + ".00";
+}
+
+
+/* ---------------- SAVE CART ---------------- */
+
+function saveCart(){
+    localStorage.setItem("galaxyCart", JSON.stringify(cart));
+}
+
+
+/* ---------------- UPDATE COUNT ---------------- */
+
+function updateCartCount(){
+
+    let total = cart.reduce((sum,item) => {
+        return sum + Number(item.quantity || 1);
+    },0);
+
+    document.getElementById("cartCount").textContent = total;
+}
+
+
+/* ---------------- CHANGE QUANTITY ---------------- */
+
+function changeQuantity(index, amount){
+
+    cart[index].quantity += amount;
+
+    if(cart[index].quantity <= 0){
+        cart.splice(index,1);
+    }
+
+    saveCart();
+    renderCart();
+}
+
+
+/* ---------------- REMOVE PRODUCT ---------------- */
+
+function removeProduct(index){
+
+    cart.splice(index,1);
+
+    saveCart();
+    renderCart();
+}
+
+
+/* ---------------- RENDER CART ---------------- */
+
+function renderCart(){
+
+    updateCartCount();
+
+    const container = document.getElementById("cartContent");
+
+    if(cart.length === 0){
+
+        container.innerHTML = `
+            <div class="cart-box empty">
+
+                <div class="empty-icon">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                </div>
+
+                <h2>Your cart is empty</h2>
+
+                <p>
+                    Looks like you haven't added anything to your cart yet.
+                </p>
+
+                <a href="Dress.html" class="shop-btn">
+                    CONTINUE SHOPPING
+                </a>
+
+            </div>
+        `;
+
+        return;
+    }
+
+
+    let subtotal = 0;
+
+    cart.forEach(item => {
+        subtotal += Number(item.price) * Number(item.quantity);
+    });
+
+
+    let shipping = subtotal >= 3000 ? 0 : 100;
+
+    let total = subtotal + shipping;
+
+
+    let itemsHTML = "";
+
+
+    cart.forEach((item,index) => {
+
+        itemsHTML += `
+
+        <div class="cart-item">
+
+            <div class="product">
+
+                <img
+                    src="${item.image}"
+                    alt="${item.name}"
+                >
+
+                <div class="product-info">
+
+                    <h3>${item.name}</h3>
+
+                    <p>
+                        ${item.size ? "Size: " + item.size : ""}
+                        ${item.color ? " &nbsp; Color: " + item.color : ""}
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="price">
+                ${money(item.price)}
+            </div>
+
+
+            <div class="quantity">
+
+                <button onclick="changeQuantity(${index},-1)">
+                    −
+                </button>
+
+                <span>
+                    ${item.quantity}
+                </span>
+
+                <button onclick="changeQuantity(${index},1)">
+                    +
+                </button>
+
+            </div>
+
+
+            <div class="subtotal">
+
+                ${money(item.price * item.quantity)}
+
+                <button
+                    class="remove"
+                    onclick="removeProduct(${index})"
+                    title="Remove"
+                >
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+
+            </div>
+
+        </div>
+
+        `;
+
+    });
+
+
+    container.innerHTML = `
+
+        <div class="cart-layout">
+
+            <div class="cart-box">
+
+                <div class="cart-header">
+
+                    <span>PRODUCT</span>
+                    <span>PRICE</span>
+                    <span>QUANTITY</span>
+                    <span>SUBTOTAL</span>
+
+                </div>
+
+                ${itemsHTML}
+
+            </div>
+
+
+            <aside class="summary">
+
+                <h2>Cart Totals</h2>
+
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span>${money(subtotal)}</span>
+                </div>
+
+                <div class="summary-row">
+                    <span>Shipping</span>
+
+                    <span>
+                        ${
+                            shipping === 0
+                            ? "FREE"
+                            : money(shipping)
+                        }
+                    </span>
+                </div>
+
+                <div class="summary-total">
+
+                    <span>Total</span>
+
+                    <span>
+                        ${money(total)}
+                    </span>
+
+                </div>
+
+                <button
+                    class="checkout"
+                    onclick="window.location.href='CheckOut.html'"
+                >
+                    PROCEED TO CHECKOUT
+                </button>
+
+                <a
+                    href="Dress.html"
+                    class="continue"
+                >
+                    ← Continue Shopping
+                </a>
+
+            </aside>
+
+        </div>
+    `;
+}
+
+
+/* ---------------- CHECKOUT ---------------- */
+
+function checkout(){
+
+    if(cart.length === 0){
+        alert("Your cart is empty.");
+        return;
+    }
+
+    alert(
+        "Thank you for shopping with Galaxy Store!\\n\\n" +
+        "Checkout page can be connected next."
+    );
+}
+
+
+/* ---------------- START ---------------- */
+
+renderCart();
+
+</script>
+
+<!-- ==================================================
+     JAVASCRIPT
+================================================== -->
+
+<script>
+
+
+/* ==================================================
+   DROPDOWNS
+================================================== */
+
+const dropdowns =
+    document.querySelectorAll(".dropdown-wrap");
+
+
+dropdowns.forEach(dropdown => {
+
+    const button =
+        dropdown.querySelector(".drop-btn");
+
+
+    button.addEventListener(
+        "click",
+        function(event){
+
+            event.stopPropagation();
+
+
+            /* Close other dropdowns */
+
+            dropdowns.forEach(other => {
+
+                if(other !== dropdown){
+
+                    other.classList.remove("open");
+
+                }
+
+            });
+
+
+            /* Toggle current dropdown */
+
+            dropdown.classList.toggle("open");
+
+        }
+    );
+
+});
+
+
+
+/* ==================================================
+   SEARCH PANEL
+================================================== */
+
+const searchToggle =
+    document.getElementById("searchToggle");
+
+const searchPanel =
+    document.getElementById("searchPanel");
+
+const searchInput =
+    document.getElementById("searchInput");
+
+const searchSubmit =
+    document.getElementById("searchSubmit");
+
+
+
+/* OPEN SEARCH */
+
+function openSearch(){
+
+    searchPanel.classList.add("show");
+
+
+    searchToggle.innerHTML =
+        '<i class="fa-solid fa-xmark"></i>';
+
+
+    searchToggle.setAttribute(
+        "aria-label",
+        "Close search"
+    );
+
+
+    setTimeout(() => {
+
+        searchInput.focus();
+
+    },150);
+
+}
+
+
+
+/* CLOSE SEARCH */
+
+function closeSearch(){
+
+    searchPanel.classList.remove("show");
+
+
+    searchToggle.innerHTML =
+        '<i class="fa-solid fa-magnifying-glass"></i>';
+
+
+    searchToggle.setAttribute(
+        "aria-label",
+        "Open search"
+    );
+
+}
+
+
+
+/* SEARCH BUTTON CLICK */
+
+searchToggle.addEventListener(
+    "click",
+    function(event){
+
+        event.stopPropagation();
+
+
+        if(
+            searchPanel.classList.contains("show")
+        ){
+
+            closeSearch();
+
+        }else{
+
+            openSearch();
+
+        }
+
+    }
+);
+
+
+
+/* PREVENT PANEL FROM CLOSING */
+
+searchPanel.addEventListener(
+    "click",
+    function(event){
+
+        event.stopPropagation();
+
+    }
+);
+
+
+
+/* SEARCH SUBMIT */
+
+searchSubmit.addEventListener(
+    "click",
+    function(){
+
+        const query =
+            searchInput.value.trim();
+
+
+        if(query){
+
+            window.location.href =
+                "shop.html?search=" +
+                encodeURIComponent(query);
+
+        }
+
+    }
+);
+
+
+
+/* ENTER + ESCAPE */
+
+searchInput.addEventListener(
+    "keydown",
+    function(event){
+
+
+        /* ENTER */
+
+        if(event.key === "Enter"){
+
+            searchSubmit.click();
+
+        }
+
+
+        /* ESCAPE */
+
+        if(event.key === "Escape"){
+
+            closeSearch();
+
+        }
+
+    }
+);
+
+
+
+/* ==================================================
+   CLICK OUTSIDE
+================================================== */
+
+document.addEventListener(
+    "click",
+    function(){
+
+
+        /* Close dropdowns */
+
+        dropdowns.forEach(dropdown => {
+
+            dropdown.classList.remove("open");
+
+        });
+
+
+        /* Close search */
+
+        if(
+            searchPanel.classList.contains("show")
+        ){
+
+            closeSearch();
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+</html>

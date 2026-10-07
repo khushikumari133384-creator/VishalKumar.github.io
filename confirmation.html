@@ -1,0 +1,6 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Order Confirmed - Kalimati Fresh</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial;background:#f6faf6;color:#18351f;display:flex;min-height:100vh;align-items:center;justify-content:center}.box{background:white;max-width:600px;width:90%;padding:45px;text-align:center;border-radius:20px;box-shadow:0 5px 25px #0001}.check{font-size:75px}.green{color:#16813b}.btn{display:inline-block;background:#16813b;color:white;padding:13px 22px;border-radius:8px;text-decoration:none;margin:8px}.details{text-align:left;background:#f4f8f4;padding:18px;border-radius:10px;margin:20px 0}
+</style></head><body><main class="box"><div class="check">✅</div><h1 class="green">Order Confirmed!</h1><p>Thank you for ordering from Kalimati Fresh.</p><div id="details" class="details"></div><a class="btn" href="index.html">Back Home</a><a class="btn" href="products.html">Shop More</a></main>
+<script>let o=JSON.parse(localStorage.getItem("lastOrder")||"{}");details.innerHTML=`<b>Customer:</b> ${o.name||"—"}<br><b>Phone:</b> ${o.phone||"—"}<br><b>Address:</b> ${o.address||"—"}<br><b>Payment:</b> ${o.payment||"—"}<br><b>Total:</b> NPR ${(o.total||0).toFixed(0)}`;</script></body></html>

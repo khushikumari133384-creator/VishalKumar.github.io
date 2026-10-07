@@ -1,0 +1,4672 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Checkout | Galaxy Store</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+>
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:
+        radial-gradient(circle at 10% 10%,rgba(255,92,120,.08),transparent 25%),
+        radial-gradient(circle at 90% 20%,rgba(40,120,255,.08),transparent 25%),
+        #f5f7fb;
+    color:#202124;
+    min-height:100vh;
+}
+
+button,
+input,
+select,
+textarea{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+a{
+    text-decoration:none;
+}
+
+
+/* =====================================================
+   TOP BAR
+===================================================== */
+
+.topbar{
+
+    height:42px;
+
+    background:#11111c;
+    color:#fff;
+
+    padding:0 6%;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    font-size:12px;
+
+    position:relative;
+    z-index:1000;
+}
+
+.topbar span:last-child{
+    color:#ddd;
+}
+
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+.navbar{
+
+    height:76px;
+
+    background:rgba(255,255,255,.96);
+
+    backdrop-filter:blur(12px);
+
+    display:flex;
+
+    justify-content:space-between;
+    align-items:center;
+
+    padding:0 6%;
+
+    box-shadow:0 4px 20px rgba(0,0,0,.07);
+
+    position:sticky;
+    top:0;
+
+    z-index:999;
+
+    animation:navDown .7s ease both;
+}
+
+.logo{
+
+    color:#111;
+
+    font-size:27px;
+
+    font-weight:800;
+
+    letter-spacing:-1px;
+}
+
+.logo span{
+    color:#ff4f6d;
+}
+
+.back-cart{
+
+    width:43px;
+    height:43px;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#222;
+
+    background:#f4f5f8;
+
+    transition:.3s;
+}
+
+.back-cart:hover{
+
+    color:#fff;
+
+    background:#ff4f6d;
+
+    transform:translateY(-3px);
+
+    box-shadow:0 8px 20px rgba(255,79,109,.25);
+}
+
+
+
+/* =====================================================
+   EXTRACTED GALAXY STORE DARK + WHITE NAVBAR
+===================================================== */
+
+.galaxy-topbar{
+    height:60px;
+    background:#10101d;
+    color:#fff;
+    padding:0 5.5%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    font-size:11px;
+    position:relative;
+    z-index:1100;
+    box-shadow:0 2px 12px rgba(0,0,0,.12);
+}
+
+.top-left,
+.top-right{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.top-left span{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    color:#ddd;
+    white-space:nowrap;
+}
+
+.top-left i,
+.top-right i{
+    color:#ff4f6d;
+}
+
+.top-right a{
+    color:#eee;
+    transition:.25s;
+}
+
+.top-right a:hover{
+    color:#ff4f6d;
+}
+
+.top-right .top-cart{
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+
+.galaxy-navbar{
+    height:123px;
+    background:rgba(255,255,255,.98);
+    backdrop-filter:blur(12px);
+    padding:0 5.5%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:28px;
+    position:sticky;
+    top:0;
+    z-index:1050;
+    box-shadow:0 4px 20px rgba(0,0,0,.07);
+    animation:navDown .7s ease both;
+}
+
+.galaxy-navbar .logo{
+    flex:0 0 auto;
+    color:#111;
+    font-size:29px;
+    font-weight:800;
+    letter-spacing:-1.4px;
+}
+
+.galaxy-navbar .logo-galaxy{
+    color:#111;
+}
+
+.galaxy-navbar .logo span:last-child{
+    color:#ff4f6d;
+}
+
+.nav-links{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:20px;
+    flex:1;
+}
+
+.nav-links > a,
+.nav-drop > a{
+    color:#222;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.3px;
+    display:flex;
+    align-items:center;
+    gap:5px;
+    white-space:nowrap;
+    transition:.25s;
+}
+
+.nav-links > a:hover,
+.nav-drop > a:hover{
+    color:#ff4f6d;
+}
+
+.nav-drop{
+    position:relative;
+    padding:30px 0;
+}
+
+.nav-drop > a i{
+    font-size:8px;
+}
+
+.drop-menu{
+    position:absolute;
+    top:82px;
+    left:50%;
+    transform:translateX(-50%) translateY(8px);
+    min-width:175px;
+    background:#fff;
+    border-radius:10px;
+    padding:9px;
+    box-shadow:0 15px 35px rgba(0,0,0,.12);
+    border:1px solid #eee;
+    opacity:0;
+    visibility:hidden;
+    transition:.25s;
+}
+
+.nav-drop:hover .drop-menu{
+    opacity:1;
+    visibility:visible;
+    transform:translateX(-50%) translateY(0);
+}
+
+.drop-menu a{
+    display:block;
+    color:#333;
+    padding:10px 12px;
+    border-radius:7px;
+    font-size:10px;
+    font-weight:600;
+}
+
+.drop-menu a:hover{
+    background:#fff1f4;
+    color:#ff4f6d;
+}
+
+.nav-actions{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    flex:0 0 auto;
+}
+
+.nav-icon,
+.nav-menu,
+.galaxy-navbar .back-cart{
+    width:43px;
+    height:43px;
+    border:0;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#222;
+    background:#f4f5f8;
+    transition:.3s;
+}
+
+.nav-icon:hover,
+.nav-menu:hover,
+.galaxy-navbar .back-cart:hover{
+    color:#fff;
+    background:#ff4f6d;
+    transform:translateY(-3px);
+    box-shadow:0 8px 20px rgba(255,79,109,.25);
+}
+
+.nav-menu{
+    display:none;
+}
+
+.search-panel{
+    position:fixed;
+    top:183px;
+    left:50%;
+    width:min(775px,90%);
+    transform:translate(-50%,-15px);
+    background:#fff;
+    padding:12px;
+    border-radius:0 0 12px 12px;
+    box-shadow:0 12px 30px rgba(0,0,0,.12);
+    z-index:1040;
+    opacity:0;
+    visibility:hidden;
+    transition:.25s;
+}
+
+.search-panel.show{
+    opacity:1;
+    visibility:visible;
+    transform:translate(-50%,0);
+}
+
+.search-panel form{
+    display:grid;
+    grid-template-columns:auto 1fr 170px auto;
+    align-items:center;
+    gap:8px;
+}
+
+.search-panel i{
+    color:#ff4f6d;
+    padding-left:7px;
+}
+
+.search-panel input,
+.search-panel select{
+    border:0;
+    box-shadow:none;
+    background:#f7f7f8;
+    padding:11px 12px;
+}
+
+.search-panel button{
+    border:0;
+    background:#171717;
+    color:#fff;
+    padding:12px 16px;
+    border-radius:8px;
+    font-size:10px;
+    font-weight:700;
+}
+
+@media(max-width:1050px){
+    .nav-links{gap:12px}
+    .nav-links > a,
+    .nav-drop > a{font-size:9px}
+    .galaxy-navbar{gap:15px}
+}
+
+@media(max-width:850px){
+    .galaxy-topbar{
+        padding:0 4%;
+    }
+    .top-left span:nth-child(2),
+    .top-left span:nth-child(3),
+    .top-right > a:not(.top-cart){
+        display:none;
+    }
+
+    .galaxy-navbar{
+        height:76px;
+        padding:0 5%;
+    }
+
+    .nav-links{
+        position:absolute;
+        top:76px;
+        left:0;
+        width:100%;
+        background:#fff;
+        padding:15px 5%;
+        display:none;
+        flex-direction:column;
+        align-items:stretch;
+        box-shadow:0 15px 30px rgba(0,0,0,.1);
+    }
+
+    .nav-links.open{
+        display:flex;
+    }
+
+    .nav-drop{
+        padding:0;
+    }
+
+    .drop-menu{
+        position:static;
+        transform:none;
+        display:none;
+        opacity:1;
+        visibility:visible;
+        box-shadow:none;
+        border:0;
+        padding:3px 0 3px 15px;
+    }
+
+    .nav-drop:hover .drop-menu{
+        transform:none;
+    }
+
+    .nav-menu{
+        display:flex;
+    }
+
+    .search-panel{
+        top:136px;
+    }
+}
+
+@media(max-width:600px){
+    .galaxy-topbar{
+        height:42px;
+        padding:0 5%;
+        font-size:9px;
+    }
+
+    .top-left span:first-child{
+        display:flex;
+    }
+
+    .top-right{
+        gap:10px;
+    }
+
+    .galaxy-navbar{
+        height:65px;
+    }
+
+    .galaxy-navbar .logo{
+        font-size:23px;
+    }
+
+    .search-panel{
+        top:107px;
+    }
+
+    .search-panel form{
+        grid-template-columns:auto 1fr auto;
+    }
+
+    .search-panel select{
+        display:none;
+    }
+
+    .search-panel button{
+        padding:11px;
+    }
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.container{
+
+    width:90%;
+
+    max-width:1200px;
+
+    margin:38px auto 70px;
+}
+
+
+/* =====================================================
+   PAGE HEADING
+===================================================== */
+
+.heading{
+
+    text-align:center;
+
+    margin-bottom:30px;
+
+    animation:fadeUp .8s ease both;
+}
+
+.heading .mini{
+
+    display:inline-flex;
+
+    align-items:center;
+    gap:7px;
+
+    color:#ff4f6d;
+
+    font-size:11px;
+
+    letter-spacing:2px;
+
+    font-weight:700;
+
+    margin-bottom:8px;
+}
+
+.heading h1{
+
+    font-size:36px;
+
+    margin-bottom:7px;
+
+    font-weight:700;
+}
+
+.heading p{
+
+    color:#777;
+
+    font-size:13px;
+}
+
+
+/* =====================================================
+   PROGRESS
+===================================================== */
+
+.checkout-progress{
+
+    display:flex;
+
+    justify-content:center;
+    align-items:center;
+
+    max-width:700px;
+
+    margin:0 auto 35px;
+
+    animation:fadeUp .9s ease both;
+}
+
+.progress-item{
+
+    display:flex;
+    align-items:center;
+
+    gap:8px;
+
+    color:#999;
+
+    font-size:11px;
+
+    font-weight:600;
+
+    white-space:nowrap;
+}
+
+.progress-item.active{
+    color:#ff4f6d;
+}
+
+.progress-number{
+
+    width:30px;
+    height:30px;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#e8e9ed;
+
+    color:#777;
+
+    transition:.3s;
+}
+
+.progress-item.active .progress-number{
+
+    background:#ff4f6d;
+
+    color:#fff;
+
+    box-shadow:
+        0 7px 20px rgba(255,79,109,.3);
+
+    animation:pulse 2s infinite;
+}
+
+.progress-line{
+
+    width:65px;
+
+    height:2px;
+
+    background:#ddd;
+
+    margin:0 8px;
+}
+
+.progress-line.active{
+    background:#ff4f6d;
+}
+
+
+/* =====================================================
+   GRID
+===================================================== */
+
+.checkout-grid{
+
+    display:grid;
+
+    grid-template-columns:1.45fr .8fr;
+
+    gap:25px;
+
+    align-items:start;
+}
+
+
+/* =====================================================
+   CARDS
+===================================================== */
+
+.card{
+
+    background:rgba(255,255,255,.96);
+
+    padding:25px;
+
+    border-radius:18px;
+
+    box-shadow:
+        0 8px 30px rgba(0,0,0,.06);
+
+    margin-bottom:20px;
+
+    border:1px solid rgba(0,0,0,.04);
+
+    animation:fadeUp .7s ease both;
+
+    transition:.3s;
+}
+
+.card:hover{
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.09);
+}
+
+.card-title{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-bottom:22px;
+}
+
+.card-title i{
+
+    width:38px;
+    height:38px;
+
+    border-radius:11px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#fff;
+
+    background:
+        linear-gradient(135deg,#ff4f6d,#ff788c);
+
+    box-shadow:
+        0 7px 18px rgba(255,79,109,.2);
+}
+
+.card-title h2{
+
+    font-size:19px;
+
+    font-weight:600;
+}
+
+.card-title p{
+
+    font-size:11px;
+
+    color:#999;
+
+    margin-top:2px;
+}
+
+
+/* =====================================================
+   FORM
+===================================================== */
+
+.form-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:18px;
+}
+
+.form-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+    position:relative;
+}
+
+.full{
+    grid-column:1/-1;
+}
+
+.form-label{
+
+    font-size:12px;
+
+    font-weight:600;
+
+    margin-bottom:7px;
+
+    color:#444;
+}
+
+.required{
+    color:#ff4f6d;
+}
+
+input,
+select,
+textarea{
+
+    width:100%;
+
+    border:1px solid #ddd;
+
+    border-radius:10px;
+
+    padding:13px 14px;
+
+    outline:none;
+
+    font-size:13px;
+
+    background:#fff;
+
+    transition:.25s;
+}
+
+textarea{
+
+    min-height:95px;
+
+    resize:vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+
+    border-color:#ff4f6d;
+
+    box-shadow:
+        0 0 0 4px rgba(255,79,109,.08);
+
+    transform:translateY(-1px);
+}
+
+input.error,
+select.error,
+textarea.error{
+
+    border-color:#e53935;
+
+    background:#fff8f8;
+
+    animation:shake .3s ease;
+}
+
+input.valid,
+select.valid,
+textarea.valid{
+
+    border-color:#22a447;
+
+    background:#fbfffc;
+}
+
+.error-message{
+
+    color:#e53935;
+
+    font-size:10px;
+
+    min-height:15px;
+
+    margin-top:4px;
+}
+
+
+/* =====================================================
+   DELIVERY INFO
+===================================================== */
+
+.delivery-banner{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:13px;
+
+    padding:15px;
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff2f5,
+            #fff
+        );
+
+    border:1px solid #ffdce3;
+
+    margin-top:20px;
+
+    animation:softGlow 3s infinite;
+}
+
+.delivery-banner i{
+
+    width:40px;
+    height:40px;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#ff4f6d;
+
+    color:#fff;
+}
+
+.delivery-banner strong{
+
+    display:block;
+
+    font-size:12px;
+
+    margin-bottom:2px;
+}
+
+.delivery-banner span{
+
+    color:#888;
+
+    font-size:10px;
+}
+
+
+/* =====================================================
+   PAYMENT
+===================================================== */
+
+.payment-list{
+
+    display:grid;
+
+    gap:12px;
+}
+
+.payment{
+
+    position:relative;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    padding:15px;
+
+    border:1px solid #e3e3e3;
+
+    border-radius:13px;
+
+    background:#fff;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    overflow:hidden;
+}
+
+.payment::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(255,79,109,.08),
+            transparent
+        );
+
+    opacity:0;
+
+    transition:.3s;
+}
+
+.payment:hover{
+
+    border-color:#ff9aaa;
+
+    transform:translateX(3px);
+
+}
+
+.payment.active{
+
+    border-color:#ff4f6d;
+
+    background:#fff8fa;
+
+    box-shadow:
+        0 7px 22px rgba(255,79,109,.09);
+}
+
+.payment.active::after{
+    opacity:1;
+}
+
+.payment input{
+
+    position:absolute;
+
+    opacity:0;
+
+    pointer-events:none;
+}
+
+.payment-icon{
+
+    width:44px;
+    height:44px;
+
+    border-radius:12px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#f3f4f7;
+
+    color:#555;
+
+    font-size:18px;
+
+    position:relative;
+
+    z-index:2;
+}
+
+.payment.active .payment-icon{
+
+    color:#fff;
+
+    background:#ff4f6d;
+}
+
+.payment-text{
+
+    position:relative;
+
+    z-index:2;
+
+    flex:1;
+}
+
+.payment-text strong{
+
+    display:block;
+
+    font-size:13px;
+
+    margin-bottom:3px;
+}
+
+.payment-text small{
+
+    color:#888;
+
+    font-size:10px;
+}
+
+.payment-check{
+
+    width:22px;
+    height:22px;
+
+    border-radius:50%;
+
+    border:2px solid #ddd;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:transparent;
+
+    position:relative;
+    z-index:2;
+}
+
+.payment.active .payment-check{
+
+    background:#ff4f6d;
+
+    border-color:#ff4f6d;
+
+    color:#fff;
+}
+
+.payment-note{
+
+    margin-top:13px;
+
+    padding:11px 13px;
+
+    border-radius:9px;
+
+    background:#f7f8fa;
+
+    color:#777;
+
+    font-size:10px;
+
+    line-height:1.6;
+}
+
+
+/* =====================================================
+   SUMMARY
+===================================================== */
+
+.summary{
+
+    position:sticky;
+
+    top:100px;
+}
+
+.summary-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+}
+
+.item-count{
+
+    background:#fff0f3;
+
+    color:#ff4f6d;
+
+    padding:5px 9px;
+
+    border-radius:20px;
+
+    font-size:10px;
+
+    font-weight:700;
+}
+
+#products{
+
+    max-height:310px;
+
+    overflow:auto;
+
+    padding-right:3px;
+}
+
+.product{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:11px;
+
+    padding:12px 0;
+
+    border-bottom:1px solid #eee;
+
+    animation:productIn .45s ease both;
+}
+
+.product:last-child{
+    border-bottom:0;
+}
+
+.product-img{
+
+    width:55px;
+    height:65px;
+
+    object-fit:cover;
+
+    border-radius:9px;
+
+    background:#f4f4f4;
+
+    border:1px solid #eee;
+}
+
+.product-info{
+
+    flex:1;
+
+    min-width:0;
+}
+
+.product-info h4{
+
+    font-size:11px;
+
+    font-weight:600;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+    margin-bottom:4px;
+}
+
+.product-info p{
+
+    color:#999;
+
+    font-size:9px;
+}
+
+.product-price{
+
+    font-size:11px;
+
+    color:#ff4f6d;
+
+    font-weight:600;
+
+    white-space:nowrap;
+}
+
+
+/* =====================================================
+   COUPON
+===================================================== */
+
+.coupon{
+
+    display:flex;
+
+    margin-top:18px;
+}
+
+.coupon input{
+
+    border-radius:9px 0 0 9px;
+
+    background:#fafafa;
+}
+
+.coupon button{
+
+    border:0;
+
+    background:#171717;
+
+    color:#fff;
+
+    padding:0 18px;
+
+    border-radius:0 9px 9px 0;
+
+    font-size:11px;
+
+    font-weight:600;
+
+    transition:.25s;
+}
+
+.coupon button:hover{
+
+    background:#ff4f6d;
+
+    padding-left:22px;
+    padding-right:22px;
+}
+
+#couponMessage{
+
+    font-size:10px;
+
+    min-height:17px;
+
+    margin-top:7px;
+}
+
+
+/* =====================================================
+   PRICE
+===================================================== */
+
+.price{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-top:14px;
+
+    color:#666;
+
+    font-size:12px;
+}
+
+.price strong{
+    color:#333;
+}
+
+.total{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    border-top:1px dashed #ddd;
+
+    margin-top:18px;
+
+    padding-top:18px;
+
+    font-size:21px;
+
+    font-weight:700;
+}
+
+#total{
+    color:#ff4f6d;
+}
+
+
+/* =====================================================
+   PLACE ORDER
+===================================================== */
+
+.place-order{
+
+    width:100%;
+
+    border:0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff4f6d,
+            #ff758b
+        );
+
+    color:#fff;
+
+    padding:16px;
+
+    margin-top:22px;
+
+    border-radius:11px;
+
+    font-size:14px;
+
+    font-weight:700;
+
+    position:relative;
+
+    overflow:hidden;
+
+    transition:.3s;
+
+    box-shadow:
+        0 9px 25px rgba(255,79,109,.25);
+}
+
+.place-order::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:-100%;
+
+    width:70%;
+    height:100%;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,255,255,.3),
+            transparent
+        );
+
+    transition:.7s;
+}
+
+.place-order:hover::before{
+    left:130%;
+}
+
+.place-order:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+        0 13px 30px rgba(255,79,109,.32);
+}
+
+.place-order:active{
+    transform:scale(.98);
+}
+
+.place-order:disabled{
+
+    background:#999;
+
+    cursor:not-allowed;
+
+    box-shadow:none;
+}
+
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+.loading{
+
+    display:none;
+
+    text-align:center;
+
+    padding:13px;
+
+    color:#ff4f6d;
+
+    font-size:11px;
+}
+
+.loading.show{
+
+    display:block;
+
+    animation:fadeIn .3s ease;
+}
+
+
+/* =====================================================
+   SECURITY
+===================================================== */
+
+.secure{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:6px;
+
+    margin-top:13px;
+
+    color:#777;
+
+    font-size:10px;
+}
+
+.secure i{
+    color:#22a447;
+}
+
+.trust-row{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:7px;
+
+    margin-top:15px;
+}
+
+.trust-item{
+
+    text-align:center;
+
+    padding:10px 5px;
+
+    border-radius:9px;
+
+    background:#f8f9fb;
+
+    color:#777;
+
+    font-size:8px;
+}
+
+.trust-item i{
+
+    display:block;
+
+    color:#ff4f6d;
+
+    font-size:14px;
+
+    margin-bottom:4px;
+}
+
+
+/* =====================================================
+   EMPTY CART
+===================================================== */
+
+.empty-cart{
+
+    text-align:center;
+
+    padding:30px 10px;
+
+    color:#888;
+}
+
+.empty-cart i{
+
+    font-size:35px;
+
+    color:#ddd;
+
+    margin-bottom:10px;
+}
+
+
+/* =====================================================
+   SUCCESS
+===================================================== */
+
+.success{
+
+    display:none;
+
+    background:#fff;
+
+    border-radius:22px;
+
+    text-align:center;
+
+    padding:60px 25px;
+
+    box-shadow:
+        0 15px 50px rgba(0,0,0,.08);
+
+    max-width:800px;
+
+    margin:30px auto;
+
+    position:relative;
+
+    overflow:hidden;
+
+    animation:successIn .7s ease both;
+}
+
+.success::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:300px;
+    height:300px;
+
+    border-radius:50%;
+
+    background:rgba(34,164,71,.07);
+
+    top:-170px;
+    left:-120px;
+}
+
+.success::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:250px;
+    height:250px;
+
+    border-radius:50%;
+
+    background:rgba(255,79,109,.06);
+
+    bottom:-150px;
+    right:-100px;
+}
+
+.success-content{
+    position:relative;
+    z-index:2;
+}
+
+.success-icon{
+
+    width:90px;
+    height:90px;
+
+    margin:0 auto 22px;
+
+    border-radius:50%;
+
+    background:#e9f8ee;
+
+    color:#20a447;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:40px;
+
+    box-shadow:
+        0 0 0 10px rgba(34,164,71,.06);
+
+    animation:
+        successPop .8s cubic-bezier(.17,.67,.38,1.4) both,
+        successPulse 2s 1s infinite;
+}
+
+.success h1{
+
+    font-size:30px;
+
+    margin-bottom:9px;
+
+    animation:fadeUp .6s .2s both;
+}
+
+.success p{
+
+    color:#666;
+
+    margin-bottom:7px;
+
+    font-size:13px;
+}
+
+.order-number{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:12px 20px;
+
+    margin:18px 0;
+
+    border-radius:10px;
+
+    background:#f1f3f6;
+
+    color:#222;
+
+    font-weight:700;
+
+    letter-spacing:.5px;
+
+    animation:fadeUp .6s .35s both;
+}
+
+.success-total{
+
+    font-size:16px !important;
+
+    font-weight:700;
+
+    color:#ff4f6d !important;
+}
+
+.home-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ff4f6d,
+            #ff758b
+        );
+
+    color:#fff;
+
+    padding:13px 24px;
+
+    border-radius:10px;
+
+    margin-top:15px;
+
+    font-size:12px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+    box-shadow:
+        0 8px 20px rgba(255,79,109,.22);
+}
+
+.home-btn:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+        0 12px 25px rgba(255,79,109,.3);
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer{
+
+    background:#11111c;
+
+    color:#aaa;
+
+    text-align:center;
+
+    padding:27px;
+
+    font-size:11px;
+
+    margin-top:50px;
+}
+
+footer strong{
+    color:#fff;
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+.toast{
+
+    position:fixed;
+
+    left:50%;
+
+    bottom:25px;
+
+    transform:
+        translate(-50%,80px);
+
+    background:#171717;
+
+    color:#fff;
+
+    padding:12px 18px;
+
+    border-radius:8px;
+
+    font-size:11px;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:.35s;
+
+    z-index:9999;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.2);
+}
+
+.toast.show{
+
+    opacity:1;
+
+    transform:
+        translate(-50%,0);
+}
+
+
+/* =====================================================
+   ANIMATIONS
+===================================================== */
+
+@keyframes navDown{
+
+    from{
+        opacity:0;
+        transform:translateY(-20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes fadeUp{
+
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes fadeIn{
+
+    from{opacity:0;}
+    to{opacity:1;}
+}
+
+@keyframes productIn{
+
+    from{
+        opacity:0;
+        transform:translateX(15px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+}
+
+@keyframes pulse{
+
+    0%,100%{
+        box-shadow:
+            0 0 0 0 rgba(255,79,109,.25);
+    }
+
+    50%{
+        box-shadow:
+            0 0 0 8px rgba(255,79,109,0);
+    }
+}
+
+@keyframes successPulse{
+
+    0%,100%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.05);
+    }
+}
+
+@keyframes successPop{
+
+    from{
+        opacity:0;
+        transform:scale(.4);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+@keyframes successIn{
+
+    from{
+        opacity:0;
+        transform:translateY(30px) scale(.97);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0) scale(1);
+    }
+}
+
+@keyframes softGlow{
+
+    0%,100%{
+        box-shadow:0 0 0 rgba(255,79,109,0);
+    }
+
+    50%{
+        box-shadow:0 5px 25px rgba(255,79,109,.08);
+    }
+}
+
+@keyframes shake{
+
+    0%,100%{transform:translateX(0);}
+    25%{transform:translateX(-4px);}
+    75%{transform:translateX(4px);}
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:850px){
+
+    .checkout-grid{
+        grid-template-columns:1fr;
+    }
+
+    .summary{
+        position:static;
+    }
+
+    .summary{
+        order:-1;
+    }
+
+    .progress-line{
+        width:35px;
+    }
+
+}
+
+@media(max-width:600px){
+
+    .topbar{
+        display:flex;
+    }
+
+    .navbar{
+        height:65px;
+        padding:0 5%;
+    }
+
+    .logo{
+        font-size:23px;
+    }
+
+    .container{
+        width:94%;
+        margin-top:25px;
+    }
+
+    .heading h1{
+        font-size:28px;
+    }
+
+    .heading p{
+        font-size:11px;
+    }
+
+    .checkout-progress{
+        justify-content:space-between;
+    }
+
+    .progress-item{
+        font-size:0;
+    }
+
+    .progress-number{
+        width:28px;
+        height:28px;
+    }
+
+    .progress-line{
+        flex:1;
+        margin:0 5px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .full{
+        grid-column:auto;
+    }
+
+    .card{
+        padding:18px;
+        border-radius:14px;
+    }
+
+    .card-title h2{
+        font-size:17px;
+    }
+
+    .trust-row{
+        grid-template-columns:1fr 1fr 1fr;
+    }
+
+    .success{
+        padding:45px 18px;
+    }
+
+    .success h1{
+        font-size:24px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     GALAXY STORE DARK TOP BAR
+===================================================== -->
+
+<div class="topbar galaxy-topbar">
+    <div class="top-left">
+        <span><i class="fa-solid fa-location-dot"></i> Kathmandu, Nepal</span>
+        <span><i class="fa-solid fa-phone"></i> +977 98XXXXXXXX</span>
+        <span><i class="fa-solid fa-envelope"></i> sales@clothesnepal.com</span>
+    </div>
+
+    <div class="top-right">
+        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="login.html">Login</a>
+        <a href="Registor.html">Register</a>
+        <a href="cart.html" class="top-cart"><i class="fa-solid fa-cart-shopping"></i> Cart</a>
+    </div>
+</div>
+
+<!-- =====================================================
+     GALAXY STORE WHITE NAVBAR
+===================================================== -->
+
+<nav class="navbar galaxy-navbar">
+    <a href="Home.html" class="logo" aria-label="Galaxy Store">
+        <span class="logo-galaxy">Galaxy</span><span>Store</span>
+    </a>
+
+    <div class="nav-links">
+        <a href="Dress.html">DRESS</a>
+        <a href="Bags.html">BAGS</a>
+        <a href="Jackets.html">JACKETS</a>
+        <a href="Pants.html">PANTS</a>
+        <a href="Shoes.html">SHOES</a>
+        <a href="Swimsuit.html">SWIMSUIT</a>
+
+        <div class="nav-drop">
+            <a href="BabyCity.html">BABY CITY <i class="fa-solid fa-chevron-down"></i></a>
+            <div class="drop-menu">
+                <a href="Baby.html">BABY</a>
+                <a href="Kids.html">KIDS</a>
+            </div>
+        </div>
+
+        <div class="nav-drop">
+            <a href="Underthings.html">UNDERTHINGS <i class="fa-solid fa-chevron-down"></i></a>
+            <div class="drop-menu">
+                <a href="Bras.html">BRAS</a>
+                <a href="Underwear.html">UNDERWEAR</a>
+            </div>
+        </div>
+
+        <div class="nav-drop">
+            <a href="Shop.html">SHOP <i class="fa-solid fa-chevron-down"></i></a>
+            <div class="drop-menu">
+                <a href="all-products.html">ALL PRODUCTS</a>
+                <a href="discount-spinner-24hr.html">DAILY SPINNER</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-actions">
+        <button class="nav-icon" type="button" id="navSearch" aria-label="Search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+        <a href="cart.html" class="back-cart" title="Back to Cart" aria-label="Cart">
+            <i class="fa-solid fa-cart-shopping"></i>
+        </a>
+        <button class="nav-menu" type="button" id="mobileMenu" aria-label="Open menu">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+    </div>
+</nav>
+
+<div class="search-panel" id="searchPanel">
+    <form action="all-products.html" method="get">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="search" name="q" placeholder="Search products..." autocomplete="off">
+        <select name="category" aria-label="Search category">
+            <option value="">All Categories</option>
+            <option value="dress">Dress</option>
+            <option value="bags">Bags</option>
+            <option value="jackets">Jackets</option>
+            <option value="pants">Pants</option>
+            <option value="shoes">Shoes</option>
+            <option value="swimsuit">Swimsuit</option>
+        </select>
+        <button type="submit">SEARCH</button>
+    </form>
+</div>
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="container">
+
+
+<div id="checkoutPage">
+
+
+<!-- HEADING -->
+
+<div class="heading">
+
+    <div class="mini">
+
+        <i class="fa-solid fa-lock"></i>
+
+        SECURE CHECKOUT
+
+    </div>
+
+    <h1>
+        Complete Your Order
+    </h1>
+
+    <p>
+        Enter your delivery information and choose your preferred payment method.
+    </p>
+
+</div>
+
+
+<!-- =====================================================
+     PROGRESS
+===================================================== -->
+
+<div class="checkout-progress">
+
+    <div class="progress-item active">
+
+        <span class="progress-number">
+            1
+        </span>
+
+        <span>
+            Details
+        </span>
+
+    </div>
+
+
+    <div class="progress-line active"></div>
+
+
+    <div class="progress-item active">
+
+        <span class="progress-number">
+            2
+        </span>
+
+        <span>
+            Payment
+        </span>
+
+    </div>
+
+
+    <div class="progress-line"></div>
+
+
+    <div class="progress-item">
+
+        <span class="progress-number">
+            3
+        </span>
+
+        <span>
+            Complete
+        </span>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     FORM
+===================================================== -->
+
+<form
+    id="orderForm"
+    action="https://formspree.io/f/xkjwkjob"
+    method="POST"
+    novalidate
+>
+
+
+<!-- HIDDEN ORDER INFORMATION -->
+
+<input
+    type="hidden"
+    name="order_number"
+    id="formOrderNumber"
+>
+
+<input
+    type="hidden"
+    name="order_items"
+    id="formItems"
+>
+
+<input
+    type="hidden"
+    name="order_total"
+    id="formTotal"
+>
+
+<input
+    type="hidden"
+    name="delivery_charge"
+    id="formDelivery"
+>
+
+<input
+    type="hidden"
+    name="discount"
+    id="formDiscount"
+>
+
+<input
+    type="hidden"
+    name="payment_method"
+    id="formPayment"
+>
+
+<input
+    type="hidden"
+    name="order_date"
+    id="formDate"
+>
+
+
+<div class="checkout-grid">
+
+
+<!-- =====================================================
+     LEFT
+===================================================== -->
+
+<div>
+
+
+<!-- CUSTOMER -->
+
+<div class="card">
+
+    <div class="card-title">
+
+        <i class="fa-solid fa-user"></i>
+
+        <div>
+
+            <h2>
+                Customer Information
+            </h2>
+
+            <p>
+                Tell us where to deliver your order.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="form-grid">
+
+
+        <!-- NAME -->
+
+        <div class="form-group">
+
+            <label class="form-label">
+
+                Full Name
+                <span class="required">*</span>
+
+            </label>
+
+            <input
+                id="name"
+                name="customer_name"
+                type="text"
+                autocomplete="name"
+                placeholder="Enter your full name"
+            >
+
+            <span
+                class="error-message"
+                id="nameError"
+            ></span>
+
+        </div>
+
+
+        <!-- PHONE -->
+
+        <div class="form-group">
+
+            <label class="form-label">
+
+                Phone Number
+                <span class="required">*</span>
+
+            </label>
+
+            <input
+                id="phone"
+                name="phone"
+                type="tel"
+                inputmode="numeric"
+                autocomplete="tel"
+                maxlength="10"
+                placeholder="98XXXXXXXX"
+            >
+
+            <span
+                class="error-message"
+                id="phoneError"
+            ></span>
+
+        </div>
+
+
+        <!-- EMAIL -->
+
+        <div class="form-group full">
+
+            <label class="form-label">
+
+                Email Address
+                <span class="required">*</span>
+
+            </label>
+
+            <input
+                id="email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                placeholder="you@example.com"
+            >
+
+            <span
+                class="error-message"
+                id="emailError"
+            ></span>
+
+        </div>
+
+
+        <!-- PROVINCE -->
+
+        <div class="form-group">
+
+            <label class="form-label">
+
+                Province
+                <span class="required">*</span>
+
+            </label>
+
+            <select
+                id="province"
+                name="province"
+            >
+
+                <option value="">
+                    Select Province
+                </option>
+
+                <option>
+                    Koshi Province
+                </option>
+
+                <option>
+                    Madhesh Province
+                </option>
+
+                <option>
+                    Bagmati Province
+                </option>
+
+                <option>
+                    Gandaki Province
+                </option>
+
+                <option>
+                    Lumbini Province
+                </option>
+
+                <option>
+                    Karnali Province
+                </option>
+
+                <option>
+                    Sudurpashchim Province
+                </option>
+
+            </select>
+
+            <span
+                class="error-message"
+                id="provinceError"
+            ></span>
+
+        </div>
+
+
+        <!-- DISTRICT -->
+
+        <div class="form-group">
+
+            <label class="form-label">
+
+                District
+                <span class="required">*</span>
+
+            </label>
+
+            <input
+                id="district"
+                name="district"
+                type="text"
+                placeholder="Enter district"
+            >
+
+            <span
+                class="error-message"
+                id="districtError"
+            ></span>
+
+        </div>
+
+
+        <!-- CITY -->
+
+        <div class="form-group">
+
+            <label class="form-label">
+
+                Municipality / City
+                <span class="required">*</span>
+
+            </label>
+
+            <input
+                id="city"
+                name="city"
+                type="text"
+                placeholder="Enter city"
+            >
+
+            <span
+                class="error-message"
+                id="cityError"
+            ></span>
+
+        </div>
+
+
+        <!-- WARD -->
+
+        <div class="form-group">
+
+            <label class="form-label">
+
+                Ward Number
+                <span class="required">*</span>
+
+            </label>
+
+            <input
+                id="ward"
+                name="ward"
+                type="number"
+                min="1"
+                max="35"
+                placeholder="Ward no."
+            >
+
+            <span
+                class="error-message"
+                id="wardError"
+            ></span>
+
+        </div>
+
+
+        <!-- STREET -->
+
+        <div class="form-group">
+
+            <label class="form-label">
+
+                Street / Tole
+                <span class="required">*</span>
+
+            </label>
+
+            <input
+                id="street"
+                name="street"
+                type="text"
+                placeholder="Street / Tole"
+            >
+
+            <span
+                class="error-message"
+                id="streetError"
+            ></span>
+
+        </div>
+
+
+        <!-- ADDRESS -->
+
+        <div class="form-group full">
+
+            <label class="form-label">
+
+                Complete Delivery Address
+                <span class="required">*</span>
+
+            </label>
+
+            <textarea
+                id="address"
+                name="address"
+                placeholder="House number, landmark and complete delivery address..."
+            ></textarea>
+
+            <span
+                class="error-message"
+                id="addressError"
+            ></span>
+
+        </div>
+
+
+        <!-- NOTE -->
+
+        <div class="form-group full">
+
+            <label class="form-label">
+
+                Delivery Note
+                <span style="color:#999;font-weight:400;">
+                    (Optional)
+                </span>
+
+            </label>
+
+            <textarea
+                id="note"
+                name="delivery_note"
+                placeholder="Example: Please call before delivery."
+            ></textarea>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- DELIVERY -->
+
+    <div class="delivery-banner">
+
+        <i class="fa-solid fa-truck-fast"></i>
+
+        <div>
+
+            <strong>
+                Fast delivery across Nepal
+            </strong>
+
+            <span>
+                Free delivery on orders above Rs. 3,000
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- PAYMENT -->
+
+<div class="card">
+
+    <div class="card-title">
+
+        <i class="fa-solid fa-wallet"></i>
+
+        <div>
+
+            <h2>
+                Payment Method
+            </h2>
+
+            <p>
+                Choose how you want to pay.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="payment-list">
+
+
+        <!-- COD -->
+
+        <label class="payment active">
+
+            <input
+                type="radio"
+                name="payment"
+                value="Cash on Delivery"
+                checked
+            >
+
+            <div class="payment-icon">
+
+                <i class="fa-solid fa-money-bill-wave"></i>
+
+            </div>
+
+            <div class="payment-text">
+
+                <strong>
+                    Cash on Delivery
+                </strong>
+
+                <small>
+                    Pay when your order arrives.
+                </small>
+
+            </div>
+
+            <div class="payment-check">
+
+                <i class="fa-solid fa-check"></i>
+
+            </div>
+
+        </label>
+
+
+        <!-- ESEWA -->
+
+        <label class="payment">
+
+            <input
+                type="radio"
+                name="payment"
+                value="eSewa"
+            >
+
+            <div class="payment-icon">
+
+                <i class="fa-solid fa-wallet"></i>
+
+            </div>
+
+            <div class="payment-text">
+
+                <strong>
+                    eSewa
+                </strong>
+
+                <small>
+                    Online payment
+                </small>
+
+            </div>
+
+            <div class="payment-check">
+
+                <i class="fa-solid fa-check"></i>
+
+            </div>
+
+        </label>
+
+
+        <!-- KHALTI -->
+
+        <label class="payment">
+
+            <input
+                type="radio"
+                name="payment"
+                value="Khalti"
+            >
+
+            <div class="payment-icon">
+
+                <i class="fa-solid fa-mobile-screen-button"></i>
+
+            </div>
+
+            <div class="payment-text">
+
+                <strong>
+                    Khalti
+                </strong>
+
+                <small>
+                    Online payment
+                </small>
+
+            </div>
+
+            <div class="payment-check">
+
+                <i class="fa-solid fa-check"></i>
+
+            </div>
+
+        </label>
+
+
+    </div>
+
+
+    <div class="payment-note">
+
+        <i class="fa-solid fa-circle-info"></i>
+
+        Online payment requires a properly configured merchant
+        payment gateway. Until it is connected, choose
+        <strong>Cash on Delivery</strong> for normal orders.
+
+    </div>
+
+</div>
+
+
+</div>
+
+
+<!-- =====================================================
+     RIGHT SUMMARY
+===================================================== -->
+
+<div>
+
+
+<div class="card summary">
+
+
+    <div class="card-title summary-header">
+
+        <div style="display:flex;align-items:center;gap:12px;">
+
+            <i class="fa-solid fa-bag-shopping"></i>
+
+            <div>
+
+                <h2>
+                    Order Summary
+                </h2>
+
+                <p>
+                    Review your items
+                </p>
+
+            </div>
+
+        </div>
+
+        <span
+            class="item-count"
+            id="itemCount"
+        >
+            0 items
+        </span>
+
+    </div>
+
+
+    <!-- PRODUCTS -->
+
+    <div id="products">
+
+        <div class="empty-cart">
+
+            <i class="fa-solid fa-spinner fa-spin"></i>
+
+            <p>
+                Loading cart...
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- COUPON -->
+
+    <div class="coupon">
+
+        <input
+            id="coupon"
+            type="text"
+            placeholder="Coupon code"
+        >
+
+        <button
+            type="button"
+            onclick="applyCoupon()"
+        >
+            APPLY
+        </button>
+
+    </div>
+
+
+    <p
+        id="couponMessage"
+    ></p>
+
+
+    <!-- PRICES -->
+
+    <div class="price">
+
+        <span>
+            Subtotal
+        </span>
+
+        <strong id="subtotal">
+            Rs. 0
+        </strong>
+
+    </div>
+
+
+    <div class="price">
+
+        <span>
+            Delivery
+        </span>
+
+        <strong id="delivery">
+            Rs. 100
+        </strong>
+
+    </div>
+
+
+    <div class="price">
+
+        <span>
+            Discount
+        </span>
+
+        <strong
+            id="discount"
+            style="color:#20a447;"
+        >
+            Rs. 0
+        </strong>
+
+    </div>
+
+
+    <div class="total">
+
+        <span>
+            Total
+        </span>
+
+        <span id="total">
+            Rs. 100
+        </span>
+
+    </div>
+
+
+    <!-- LOADING -->
+
+    <div
+        class="loading"
+        id="loading"
+    >
+
+        <i class="fa-solid fa-circle-notch fa-spin"></i>
+
+        Sending your order securely...
+
+    </div>
+
+
+    <!-- BUTTON -->
+
+    <button
+        type="submit"
+        class="place-order"
+        id="placeOrder"
+    >
+
+        <i class="fa-solid fa-lock"></i>
+
+        Place Order Securely
+
+    </button>
+
+
+    <!-- SECURITY -->
+
+    <div class="secure">
+
+        <i class="fa-solid fa-shield-halved"></i>
+
+        Your information is securely submitted.
+
+    </div>
+
+
+    <!-- TRUST -->
+
+    <div class="trust-row">
+
+        <div class="trust-item">
+
+            <i class="fa-solid fa-lock"></i>
+
+            Secure
+
+        </div>
+
+        <div class="trust-item">
+
+            <i class="fa-solid fa-truck"></i>
+
+            Delivery
+
+        </div>
+
+        <div class="trust-item">
+
+            <i class="fa-solid fa-headset"></i>
+
+            Support
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+</form>
+
+</div>
+
+
+<!-- =====================================================
+     SUCCESS
+===================================================== -->
+
+<div
+    class="success"
+    id="success"
+>
+
+<div class="success-content">
+
+    <div class="success-icon">
+
+        <i class="fa-solid fa-check"></i>
+
+    </div>
+
+
+    <h1>
+        Order Placed Successfully!
+    </h1>
+
+
+    <p>
+        Thank you for shopping with Galaxy Store.
+    </p>
+
+
+    <p>
+        Your order number is:
+    </p>
+
+
+    <div
+        class="order-number"
+        id="successOrder"
+    >
+
+        <i class="fa-solid fa-receipt"></i>
+
+        GS-000000
+
+    </div>
+
+
+    <p
+        class="success-total"
+        id="successTotal"
+    >
+        Total: Rs. 0
+    </p>
+
+
+    <p style="font-size:11px;color:#999;margin-top:10px;">
+
+        We have received your order details.
+        Our team will contact you if needed.
+
+    </p>
+
+
+    <a
+        href="Dress.html"
+        class="home-btn"
+    >
+
+        <i class="fa-solid fa-bag-shopping"></i>
+
+        Continue Shopping
+
+    </a>
+
+</div>
+
+</div>
+
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    © 2026
+    <strong>Galaxy Store</strong>
+    · All Rights Reserved
+
+</footer>
+
+
+<!-- TOAST -->
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
+
+<script>
+
+/* =====================================================
+   GALAXY STORE NAVBAR
+===================================================== */
+
+const mobileMenu = document.getElementById("mobileMenu");
+const navLinks = document.querySelector(".nav-links");
+const navSearch = document.getElementById("navSearch");
+const searchPanel = document.getElementById("searchPanel");
+
+if(mobileMenu){
+    mobileMenu.addEventListener("click",()=>{
+        navLinks.classList.toggle("open");
+    });
+}
+
+if(navSearch){
+    navSearch.addEventListener("click",()=>{
+        searchPanel.classList.toggle("show");
+        const searchInput = searchPanel.querySelector("input");
+        if(searchPanel.classList.contains("show")){
+            setTimeout(()=>searchInput.focus(),100);
+        }
+    });
+}
+
+document.addEventListener("click",(e)=>{
+    if(
+        searchPanel &&
+        searchPanel.classList.contains("show") &&
+        !searchPanel.contains(e.target) &&
+        !navSearch.contains(e.target)
+    ){
+        searchPanel.classList.remove("show");
+    }
+});
+
+
+/* =====================================================
+   CART
+===================================================== */
+
+let cart = [];
+
+const cartKeys = [
+
+    "cart",
+
+    "cartItems",
+
+    "shoppingCart",
+
+    "galaxyCart"
+
+];
+
+
+for(const key of cartKeys){
+
+    const saved =
+        localStorage.getItem(key);
+
+    if(!saved) continue;
+
+    try{
+
+        const parsed =
+            JSON.parse(saved);
+
+        if(Array.isArray(parsed)){
+
+            cart = parsed;
+
+            break;
+
+        }
+
+    }catch(e){}
+
+}
+
+
+/* =====================================================
+   DISCOUNT
+===================================================== */
+
+let discount = 0;
+
+
+/* =====================================================
+   MONEY
+===================================================== */
+
+function money(value){
+
+    return Number(value || 0)
+        .toLocaleString("en-IN");
+
+}
+
+
+/* =====================================================
+   SUBTOTAL
+===================================================== */
+
+function getSubtotal(){
+
+    return cart.reduce(
+
+        (sum,item)=>{
+
+            const price =
+                Number(
+                    item.price ||
+                    item.salePrice ||
+                    0
+                );
+
+            const quantity =
+                Number(
+                    item.quantity ||
+                    item.qty ||
+                    1
+                );
+
+            return sum +
+                price *
+                quantity;
+
+        },
+
+        0
+
+    );
+
+}
+
+
+/* =====================================================
+   TOTALS
+===================================================== */
+
+function updateTotals(){
+
+    const subtotal =
+        getSubtotal();
+
+
+    const delivery =
+        subtotal >= 3000
+        ? 0
+        : 100;
+
+
+    const total =
+        Math.max(
+            0,
+            subtotal +
+            delivery -
+            discount
+        );
+
+
+    document.getElementById(
+        "subtotal"
+    ).textContent =
+        "Rs. " +
+        money(subtotal);
+
+
+    document.getElementById(
+        "delivery"
+    ).textContent =
+
+        delivery === 0
+        ? "FREE"
+        : "Rs. " +
+          money(delivery);
+
+
+    document.getElementById(
+        "discount"
+    ).textContent =
+        "Rs. " +
+        money(discount);
+
+
+    document.getElementById(
+        "total"
+    ).textContent =
+        "Rs. " +
+        money(total);
+
+
+    const count =
+        cart.reduce(
+
+            (sum,item)=>
+                sum +
+                Number(
+                    item.quantity ||
+                    item.qty ||
+                    1
+                ),
+
+            0
+
+        );
+
+
+    document.getElementById(
+        "itemCount"
+    ).textContent =
+        count +
+        (
+            count === 1
+            ? " item"
+            : " items"
+        );
+
+}
+
+
+/* =====================================================
+   DISPLAY PRODUCTS
+===================================================== */
+
+function displayProducts(){
+
+    const box =
+        document.getElementById(
+            "products"
+        );
+
+
+    if(cart.length === 0){
+
+        box.innerHTML = `
+
+            <div class="empty-cart">
+
+                <i class="fa-solid fa-bag-shopping"></i>
+
+                <p>
+                    Your cart is empty.
+                </p>
+
+            </div>
+
+        `;
+
+        updateTotals();
+
+        return;
+
+    }
+
+
+    box.innerHTML = "";
+
+
+    cart.forEach(
+
+        (item,index)=>{
+
+            const name =
+                item.name ||
+                item.title ||
+                "Product";
+
+
+            const price =
+                Number(
+                    item.price ||
+                    item.salePrice ||
+                    0
+                );
+
+
+            const quantity =
+                Number(
+                    item.quantity ||
+                    item.qty ||
+                    1
+                );
+
+
+            const image =
+                item.image ||
+                item.img ||
+                "";
+
+
+            const row =
+                document.createElement(
+                    "div"
+                );
+
+
+            row.className =
+                "product";
+
+
+            row.style.animationDelay =
+                (index * .06) +
+                "s";
+
+
+            row.innerHTML = `
+
+                <img
+                    class="product-img"
+                    src="${escapeHTML(image)}"
+                    alt="${escapeHTML(name)}"
+                    onerror="
+                        this.style.display='none'
+                    "
+                >
+
+                <div class="product-info">
+
+                    <h4>
+                        ${escapeHTML(name)}
+                    </h4>
+
+                    <p>
+                        Quantity: ${quantity}
+                    </p>
+
+                </div>
+
+                <div class="product-price">
+
+                    Rs. ${money(
+                        price *
+                        quantity
+                    )}
+
+                </div>
+
+            `;
+
+
+            box.appendChild(row);
+
+        }
+
+    );
+
+
+    updateTotals();
+
+}
+
+
+/* =====================================================
+   COUPON
+===================================================== */
+
+function applyCoupon(){
+
+    const input =
+        document.getElementById("coupon");
+
+    const code =
+        input.value
+            .trim()
+            .toUpperCase();
+
+    const message =
+        document.getElementById("couponMessage");
+
+    const subtotal =
+        getSubtotal();
+
+    /*
+       ONLY COUPONS GENERATED BY THE 24-HOUR SPINNER
+       ARE ACCEPTED.
+
+       The spinner stores:
+       galaxy_daily_spin_v2 = {
+          at: timestamp,
+          code: GALAXY5 ... GALAXY50,
+          discount: "5% OFF" ... "50% OFF"
+       }
+    */
+
+    const spinnerCodes = {
+        GALAXY5:  .05,
+        GALAXY10: .10,
+        GALAXY15: .15,
+        GALAXY20: .20,
+        GALAXY25: .25,
+        GALAXY30: .30,
+        GALAXY40: .40,
+        GALAXY50: .50
+    };
+
+    let spinnerReward = null;
+
+    try{
+        spinnerReward =
+            JSON.parse(
+                localStorage.getItem(
+                    "galaxy_daily_spin_v2"
+                ) || "null"
+            );
+    }catch(e){
+        spinnerReward = null;
+    }
+
+    if(code === ""){
+        discount = 0;
+        message.style.color = "#e53935";
+        message.textContent = "Enter your spinner coupon code.";
+        updateTotals();
+        return;
+    }
+
+    if(!spinnerReward){
+        discount = 0;
+        message.style.color = "#e53935";
+        message.textContent =
+            "✕ This coupon is not available. Spin the Galaxy Store Daily Discount Spinner first.";
+        showToast("Spin the Daily Discount Spinner to get a coupon.");
+        updateTotals();
+        return;
+    }
+
+    const age =
+        Date.now() -
+        Number(spinnerReward.at || 0);
+
+    const validFor24Hours =
+        Number.isFinite(age) &&
+        age >= 0 &&
+        age < 86400000;
+
+    const storedCode =
+        String(spinnerReward.code || "")
+            .trim()
+            .toUpperCase();
+
+    const storedRate =
+        spinnerCodes[storedCode];
+
+    /*
+       The typed code must match the exact coupon
+       generated by the spinner and must still be
+       inside its 24-hour validity period.
+    */
+    if(
+        !validFor24Hours ||
+        !storedRate ||
+        storedCode !== code
+    ){
+        discount = 0;
+
+        message.style.color = "#e53935";
+        message.textContent =
+            "✕ Invalid or expired spinner coupon. Generate a new coupon from the Daily Discount Spinner.";
+
+        showToast("Invalid or expired spinner coupon.");
+        updateTotals();
+        return;
+    }
+
+    if(subtotal <= 0){
+        discount = 0;
+
+        message.style.color = "#e53935";
+        message.textContent =
+            "Add products before using a coupon.";
+
+        updateTotals();
+        return;
+    }
+
+    discount =
+        Math.round(
+            subtotal * storedRate
+        );
+
+    message.style.color = "#20a447";
+    message.textContent =
+        "✓ " +
+        storedCode +
+        " accepted — " +
+        Math.round(storedRate * 100) +
+        "% spinner discount applied!";
+
+    showToast(
+        "🎉 " +
+        Math.round(storedRate * 100) +
+        "% Galaxy Store spinner discount applied!"
+    );
+
+    updateTotals();
+}
+
+
+
+/* =====================================================
+   VALIDATION
+===================================================== */
+
+function setError(
+    id,
+    message
+){
+
+    const input =
+        document.getElementById(id);
+
+
+    const error =
+        document.getElementById(
+            id + "Error"
+        );
+
+
+    input.classList.add("error");
+
+    input.classList.remove("valid");
+
+
+    if(error){
+
+        error.textContent =
+            message;
+
+    }
+
+
+    return false;
+
+}
+
+
+function setValid(id){
+
+    const input =
+        document.getElementById(id);
+
+
+    const error =
+        document.getElementById(
+            id + "Error"
+        );
+
+
+    input.classList.remove(
+        "error"
+    );
+
+    input.classList.add(
+        "valid"
+    );
+
+
+    if(error){
+
+        error.textContent =
+            "";
+
+    }
+
+
+    return true;
+
+}
+
+
+/* =====================================================
+   NAME
+===================================================== */
+
+function validateName(){
+
+    const value =
+        document.getElementById(
+            "name"
+        )
+        .value
+        .trim();
+
+
+    if(value.length < 3)
+
+        return setError(
+            "name",
+            "Please enter your full name."
+        );
+
+
+    if(
+        !/^[A-Za-zÀ-ÿ\s.'-]+$/.test(
+            value
+        )
+    )
+
+        return setError(
+            "name",
+            "Please enter a valid name."
+        );
+
+
+    return setValid("name");
+
+}
+
+
+/* =====================================================
+   PHONE
+===================================================== */
+
+function validatePhone(){
+
+    const value =
+        document.getElementById(
+            "phone"
+        )
+        .value
+        .trim();
+
+
+    if(
+        !/^(97|98)\d{8}$/.test(
+            value
+        )
+    )
+
+        return setError(
+            "phone",
+            "Enter a valid 10-digit Nepal mobile number."
+        );
+
+
+    return setValid("phone");
+
+}
+
+
+/* =====================================================
+   EMAIL
+===================================================== */
+
+function validateEmail(){
+
+    const value =
+        document.getElementById(
+            "email"
+        )
+        .value
+        .trim();
+
+
+    const pattern =
+        /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+
+    if(
+        !pattern.test(value)
+    )
+
+        return setError(
+            "email",
+            "Enter a valid email address."
+        );
+
+
+    return setValid("email");
+
+}
+
+
+/* =====================================================
+   PROVINCE
+===================================================== */
+
+function validateProvince(){
+
+    if(
+        !document.getElementById(
+            "province"
+        ).value
+    )
+
+        return setError(
+            "province",
+            "Please select your province."
+        );
+
+
+    return setValid(
+        "province"
+    );
+
+}
+
+
+/* =====================================================
+   TEXT
+===================================================== */
+
+function validateText(
+    id,
+    label
+){
+
+    const value =
+        document.getElementById(id)
+        .value
+        .trim();
+
+
+    if(value.length < 2)
+
+        return setError(
+            id,
+            "Please enter a valid " +
+            label +
+            "."
+        );
+
+
+    if(
+        !/^[A-Za-zÀ-ÿ0-9\s.'/-]+$/.test(
+            value
+        )
+    )
+
+        return setError(
+            id,
+            "Please enter valid information."
+        );
+
+
+    return setValid(id);
+
+}
+
+
+/* =====================================================
+   WARD
+===================================================== */
+
+function validateWard(){
+
+    const value =
+        Number(
+            document.getElementById(
+                "ward"
+            ).value
+        );
+
+
+    if(
+        !Number.isInteger(value) ||
+        value < 1 ||
+        value > 35
+    )
+
+        return setError(
+            "ward",
+            "Ward number must be between 1 and 35."
+        );
+
+
+    return setValid("ward");
+
+}
+
+
+/* =====================================================
+   ADDRESS
+===================================================== */
+
+function validateAddress(){
+
+    const value =
+        document.getElementById(
+            "address"
+        )
+        .value
+        .trim();
+
+
+    if(value.length < 10)
+
+        return setError(
+            "address",
+            "Please enter a more complete delivery address."
+        );
+
+
+    return setValid("address");
+
+}
+
+
+/* =====================================================
+   LIVE VALIDATION
+===================================================== */
+
+document.getElementById(
+    "name"
+).addEventListener(
+    "blur",
+    validateName
+);
+
+
+document.getElementById(
+    "phone"
+).addEventListener(
+    "blur",
+    validatePhone
+);
+
+
+document.getElementById(
+    "email"
+).addEventListener(
+    "blur",
+    validateEmail
+);
+
+
+document.getElementById(
+    "province"
+).addEventListener(
+    "change",
+    validateProvince
+);
+
+
+document.getElementById(
+    "district"
+).addEventListener(
+    "blur",
+    () =>
+        validateText(
+            "district",
+            "district"
+        )
+);
+
+
+document.getElementById(
+    "city"
+).addEventListener(
+    "blur",
+    () =>
+        validateText(
+            "city",
+            "municipality/city"
+        )
+);
+
+
+document.getElementById(
+    "ward"
+).addEventListener(
+    "blur",
+    validateWard
+);
+
+
+document.getElementById(
+    "street"
+).addEventListener(
+    "blur",
+    () =>
+        validateText(
+            "street",
+            "street/tole"
+        )
+);
+
+
+document.getElementById(
+    "address"
+).addEventListener(
+    "blur",
+    validateAddress
+);
+
+
+/* =====================================================
+   PAYMENT UI
+===================================================== */
+
+document
+.querySelectorAll(".payment")
+.forEach(
+
+    option=>{
+
+        option.addEventListener(
+            "click",
+            ()=>{
+
+                document
+                .querySelectorAll(
+                    ".payment"
+                )
+                .forEach(
+                    item=>
+                        item.classList.remove(
+                            "active"
+                        )
+                );
+
+
+                option.classList.add(
+                    "active"
+                );
+
+
+                const radio =
+                    option.querySelector(
+                        "input"
+                    );
+
+
+                radio.checked =
+                    true;
+
+
+                if(
+                    radio.value === "eSewa" ||
+                    radio.value === "Khalti"
+                ){
+
+                    showToast(
+                        radio.value +
+                        " selected. Payment gateway setup is required."
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+);
+
+
+/* =====================================================
+   SUBMIT
+===================================================== */
+
+document
+.getElementById(
+    "orderForm"
+)
+.addEventListener(
+
+    "submit",
+
+    async function(e){
+
+        e.preventDefault();
+
+
+        const valid = [
+
+            validateName(),
+
+            validatePhone(),
+
+            validateEmail(),
+
+            validateProvince(),
+
+            validateText(
+                "district",
+                "district"
+            ),
+
+            validateText(
+                "city",
+                "municipality/city"
+            ),
+
+            validateWard(),
+
+            validateText(
+                "street",
+                "street/tole"
+            ),
+
+            validateAddress()
+
+        ].every(Boolean);
+
+
+        if(!valid){
+
+            const firstError =
+                document.querySelector(
+                    ".error"
+                );
+
+
+            if(firstError){
+
+                firstError.scrollIntoView({
+
+                    behavior:"smooth",
+
+                    block:"center"
+
+                });
+
+                firstError.focus();
+
+            }
+
+
+            showToast(
+                "Please correct the highlighted fields."
+            );
+
+            return;
+
+        }
+
+
+        if(cart.length === 0){
+
+            showToast(
+                "Your cart is empty."
+            );
+
+            return;
+
+        }
+
+
+        /* ORDER NUMBER */
+
+        const orderNumber =
+
+            "GS-" +
+
+            new Date()
+                .getFullYear() +
+
+            "-" +
+
+            Math.floor(
+                100000 +
+                Math.random() *
+                900000
+            );
+
+
+        const subtotal =
+            getSubtotal();
+
+
+        const delivery =
+            subtotal >= 3000
+            ? 0
+            : 100;
+
+
+        const total =
+            Math.max(
+                0,
+                subtotal +
+                delivery -
+                discount
+            );
+
+
+        const payment =
+            document.querySelector(
+                'input[name="payment"]:checked'
+            ).value;
+
+
+        /* HIDDEN FORM DATA */
+
+        document.getElementById(
+            "formOrderNumber"
+        ).value =
+            orderNumber;
+
+
+        document.getElementById(
+            "formItems"
+        ).value =
+
+            cart.map(
+                item =>
+
+                    `${
+                        item.name ||
+                        item.title ||
+                        "Product"
+                    } x ${
+                        item.quantity ||
+                        item.qty ||
+                        1
+                    }`
+
+            ).join(" | ");
+
+
+        document.getElementById(
+            "formTotal"
+        ).value =
+            "Rs. " +
+            total;
+
+
+        document.getElementById(
+            "formDelivery"
+        ).value =
+
+            delivery === 0
+            ? "FREE"
+            : "Rs. " +
+              delivery;
+
+
+        document.getElementById(
+            "formDiscount"
+        ).value =
+            "Rs. " +
+            discount;
+
+
+        document.getElementById(
+            "formPayment"
+        ).value =
+            payment;
+
+
+        document.getElementById(
+            "formDate"
+        ).value =
+            new Date().toLocaleString(
+                "en-NP"
+            );
+
+
+        /* SAVE ORDER LOCALLY */
+
+        const order = {
+
+            orderNumber,
+
+            customer:{
+
+                name:
+                    document.getElementById(
+                        "name"
+                    ).value,
+
+                phone:
+                    document.getElementById(
+                        "phone"
+                    ).value,
+
+                email:
+                    document.getElementById(
+                        "email"
+                    ).value,
+
+                province:
+                    document.getElementById(
+                        "province"
+                    ).value,
+
+                district:
+                    document.getElementById(
+                        "district"
+                    ).value,
+
+                city:
+                    document.getElementById(
+                        "city"
+                    ).value,
+
+                ward:
+                    document.getElementById(
+                        "ward"
+                    ).value,
+
+                street:
+                    document.getElementById(
+                        "street"
+                    ).value,
+
+                address:
+                    document.getElementById(
+                        "address"
+                    ).value,
+
+                note:
+                    document.getElementById(
+                        "note"
+                    ).value
+
+            },
+
+            payment,
+
+            products:cart,
+
+            subtotal,
+
+            delivery,
+
+            discount,
+
+            total,
+
+            date:
+                new Date().toISOString()
+
+        };
+
+
+        localStorage.setItem(
+            "lastOrder",
+            JSON.stringify(order)
+        );
+
+
+        /* BUTTON */
+
+        const button =
+            document.getElementById(
+                "placeOrder"
+            );
+
+
+        const loading =
+            document.getElementById(
+                "loading"
+            );
+
+
+        button.disabled =
+            true;
+
+
+        button.innerHTML =
+            `
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+            Processing Order...
+            `;
+
+
+        loading.classList.add(
+            "show"
+        );
+
+
+        try{
+
+            const response =
+                await fetch(
+
+                    this.action,
+
+                    {
+
+                        method:"POST",
+
+                        body:
+                            new FormData(
+                                this
+                            ),
+
+                        headers:{
+
+                            "Accept":
+                                "application/json"
+
+                        }
+
+                    }
+
+                );
+
+
+            if(!response.ok)
+
+                throw new Error(
+                    "Submission failed"
+                );
+
+
+            /* CLEAR CART */
+
+            cartKeys.forEach(
+
+                key=>{
+
+                    localStorage.removeItem(
+                        key
+                    );
+
+                }
+
+            );
+
+
+            /* SUCCESS */
+
+            document.getElementById(
+                "checkoutPage"
+            ).style.display =
+                "none";
+
+
+            document.getElementById(
+                "success"
+            ).style.display =
+                "block";
+
+
+            document.getElementById(
+                "successOrder"
+            ).innerHTML =
+
+                `
+                <i class="fa-solid fa-receipt"></i>
+                ${orderNumber}
+                `;
+
+
+            document.getElementById(
+                "successTotal"
+            ).textContent =
+
+                "Total: Rs. " +
+                money(total);
+
+
+            window.scrollTo({
+
+                top:0,
+
+                behavior:"smooth"
+
+            });
+
+
+        }catch(error){
+
+            console.error(error);
+
+
+            showToast(
+                "Could not send the order. Please try again."
+            );
+
+
+            button.disabled =
+                false;
+
+
+            button.innerHTML =
+                `
+                <i class="fa-solid fa-lock"></i>
+                Place Order Securely
+                `;
+
+
+            loading.classList.remove(
+                "show"
+            );
+
+        }
+
+    }
+
+);
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(text){
+
+    return String(text)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =====================================================
+   TOAST
+===================================================== */
+
+let toastTimer;
+
+function showToast(message){
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        toastTimer
+    );
+
+
+    toastTimer =
+        setTimeout(
+
+            ()=>{
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+
+            2800
+
+        );
+
+}
+
+
+/* =====================================================
+   COUPON ENTER KEY
+===================================================== */
+
+document
+.getElementById(
+    "coupon"
+)
+.addEventListener(
+
+    "keydown",
+
+    function(e){
+
+        if(e.key === "Enter"){
+
+            e.preventDefault();
+
+            applyCoupon();
+
+        }
+
+    }
+
+);
+
+
+/* =====================================================
+   INITIAL LOAD
+===================================================== */
+
+displayProducts();
+
+updateTotals();
+
+
+/* =====================================================
+   CART CHANGE LISTENER
+===================================================== */
+
+window.addEventListener(
+
+    "storage",
+
+    function(event){
+
+        if(
+            cartKeys.includes(
+                event.key
+            )
+        ){
+
+            cart = [];
+
+            for(
+                const key
+                of cartKeys
+            ){
+
+                const saved =
+                    localStorage.getItem(
+                        key
+                    );
+
+                if(!saved)
+                    continue;
+
+                try{
+
+                    const parsed =
+                        JSON.parse(
+                            saved
+                        );
+
+                    if(
+                        Array.isArray(
+                            parsed
+                        )
+                    ){
+
+                        cart =
+                            parsed;
+
+                        break;
+
+                    }
+
+                }catch(e){}
+
+            }
+
+
+            displayProducts();
+
+        }
+
+    }
+
+);
+
+</script>
+
+</body>
+</html>
